@@ -19,8 +19,11 @@ jobs:
           node --check questions.js
           node --check app.js
           node --check tests/validate-engine.js
+          node --check tests/smoke-page.js
       - name: Validate learning engine and encounter capacity
         run: node tests/validate-engine.js
+      - name: Smoke test page load and DOM contract
+        run: node tests/smoke-page.js
       - name: Check page architecture
         run: |
           grep -q '<script src="config.js"></script>' index.html
