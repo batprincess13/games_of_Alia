@@ -25,7 +25,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Build approved install icons
         run: |
-          cat icons/source/approved-*.b64 | tr -d '\n\r' | base64 --decode > icons/games-of-alia-180.png
+          cat \
+            icons/source/approved-00.b64 \
+            icons/source/approved-01.b64 \
+            icons/source/approved-02a.b64 \
+            icons/source/approved-02b.b64 \
+            icons/source/approved-02c.b64 \
+            icons/source/approved-02d.b64 \
+            icons/source/approved-03.b64 \
+            icons/source/approved-04.b64 \
+            icons/source/approved-05.b64 \
+            | tr -d '\n\r' | base64 --decode > icons/games-of-alia-180.png
           echo 'fb32b2090243d82cccb93524bd52273501bc3963014eb2cf21634672c39685bf  icons/games-of-alia-180.png' | sha256sum --check
           python3 -m pip install --disable-pip-version-check --quiet pillow
           python3 - <<'PY'
