@@ -43,13 +43,41 @@ Business path:
 - Approved 100% reward categories: school-day screen time (30 minutes), cash, food. Cash/food amounts must not be hardcoded without approval.
 - Clearing browser data can erase local progress and the UI must warn about this.
 
+## Current architecture
+
+The live page uses one maintained implementation:
+
+`index.html → style.css + config.js → questions.js → app.js`
+
+There is no duplicate embedded game engine in `index.html`.
+
 ## Current implementation state
 
-The repository is mid-rebuild. Recent work introduced component-aware curriculum sequencing, anti-repeat question generation, diagnostic-only Toolbox behavior, realistic service fees, and portfolio records. These changes are not sufficient to declare the game complete.
+The current build includes:
 
-Known work still required includes full codebase consolidation/validation, complete current MATATAG Grade 3 curriculum audit, richer question-family coverage for every competency, truly adaptive scaffold fading and retention, meaningful multi-step business job flow, portfolio/parent/reward UI validation, and end-to-end testing.
+- 36 Grade 3 mathematics competency clusters, including area, composite figures, perimeter, time/duration/elapsed time, number and operations, data/probability, multiplication, division, fractions, translation, and symmetry.
+- Diagnostic-only Toolbox onboarding that does not certify mastery.
+- Evidence-weighted mastery requiring at least 85% plus component coverage, independent/no-hint performance, applied/transfer evidence, and recent performance.
+- Teaching, guided practice, scaffold fading, reteaching, independent application, transfer, and retention phases.
+- Weak-component targeting and recent-question avoidance.
+- Generator coverage validation requiring at least 200 distinct encounter keys per competency and generator coverage for every listed component.
+- Full contract flow from curriculum work through inventory check, purchasing, labor/service fee decision, customer quote, work completion, payment, profit, and portfolio recording.
+- Realistic fixed-peso labor/service fee choices by business tier, with material costs kept separate.
+- Local profiles, parent password controls, curriculum map, portfolio, approved consequence confirmation, and approved 100% reward confirmation.
+- Automated GitHub validation for JavaScript syntax, generator coverage, page load/DOM contract, script architecture, and governing files.
 
-`index.html` currently contains legacy embedded CSS/JavaScript while separate `style.css`, `config.js`, `questions.js`, and `app.js` also exist. Consolidate this safely without dropping parent controls, portfolio, curriculum modal, reward/consequence gates, or profile controls.
+## Validation
+
+GitHub Actions runs on every push to `main` and on pull requests. It checks:
+
+- JavaScript syntax for the game and test files.
+- Every listed competency/component has a working question generator.
+- At least 200 distinct encounter keys can be generated per competency.
+- The page contains the required DOM controls and the game scripts load in the correct order.
+- The repository uses the split architecture rather than a duplicate embedded engine.
+- `README.md` and `BUILDER_QUEST_GOVERNING_SPEC.md` remain present.
+
+These automated checks are not a substitute for manual child/browser playtesting. Do not claim browser or usability validation unless it was actually performed.
 
 ## Acceptance authority
 
