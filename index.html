@@ -1,291 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Alia's Builder Quest</title>
-<style>
-:root{
-  --bg1:#dff3ff;
-  --bg2:#fff4df;
-  --ink:#183247;
-  --muted:#5f7382;
-  --line:#cbd8de;
-  --card:#fffefb;
-  --panel:#f5f8fa;
-  --accent:#256e61;
-  --accent2:#f19f35;
-  --danger:#a73f36;
-  --success:#2c7a4b;
-  --gold:#d8a629;
-  --wood:#c98a47;
-  --steel:#78909c;
-  --pink:#ffd8ea;
-  --blue:#c9eeff;
-  --shadow:0 12px 24px rgba(0,0,0,.08);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,.8), transparent 30%),
-    linear-gradient(180deg,var(--bg1),var(--bg2));
-}
-main{max-width:1220px;margin:0 auto;padding:18px}
-h1,h2,h3,p{margin-top:0}
-button,input{font:inherit}
-button{
-  border:0;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;
-  background:var(--accent);color:white;box-shadow:var(--shadow)
-}
-button.secondary{background:#e9eef1;color:var(--ink);box-shadow:none}
-button.warning{background:var(--danger)}
-button.gold{background:var(--gold);color:#3f3000}
-button.choice{
-  background:white;color:var(--ink);border:2px solid var(--line);box-shadow:none;
-  text-align:left
-}
-button.choice:hover:not(:disabled){border-color:var(--accent2);transform:translateY(-1px)}
-button:disabled{opacity:.55;cursor:not-allowed}
-input{
-  width:100%;min-height:48px;border-radius:14px;border:2px solid var(--line);
-  padding:12px 14px;background:white;color:var(--ink)
-}
-.header{
-  display:grid;grid-template-columns:1.4fr .9fr;gap:16px;align-items:stretch
-}
-.hero,.statusCard,.mapCard,.missionCard,.sideCard,.modalCard{
-  background:rgba(255,255,255,.88);backdrop-filter:blur(4px);
-  border:1px solid rgba(255,255,255,.9);border-radius:24px;padding:18px;box-shadow:var(--shadow)
-}
-.hero{
-  background:
-    linear-gradient(145deg, rgba(255,255,255,.96), rgba(255,248,236,.95)),
-    linear-gradient(90deg, var(--pink), var(--blue));
-  position:relative;overflow:hidden
-}
-.hero:after{
-  content:"";position:absolute;right:-24px;bottom:-24px;width:180px;height:180px;
-  background:radial-gradient(circle,var(--accent2),transparent 70%);opacity:.18
-}
-.hero .title{font-size:clamp(30px,5vw,48px);margin-bottom:6px}
-.hero .sub{color:var(--muted);max-width:720px}
-.heroRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.pill{
-  display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border-radius:999px;
-  background:#eef5f7;color:var(--ink);font-weight:800
-}
-.statusGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{
-  background:var(--panel);padding:12px;border-radius:16px;border:1px solid #ebf0f2
-}
-.stat small{display:block;color:var(--muted);margin-bottom:4px}
-.stat strong{font-size:24px}
-.layout{display:grid;grid-template-columns:1.1fr 1.25fr .8fr;gap:16px;margin-top:16px}
-.sectionTitle{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
-.town{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:12px
-}
-.site{
-  min-height:126px;border-radius:20px;padding:14px;position:relative;overflow:hidden;
-  border:2px solid #dbe4e8;background:linear-gradient(180deg,#fff,#f8fbfd)
-}
-.site h4{margin:0 0 6px 0}
-.site small{color:var(--muted)}
-.site .art{font-size:40px;margin-top:8px}
-.site.locked{opacity:.52;filter:grayscale(.35)}
-.site.current{border-color:var(--accent2);box-shadow:0 0 0 4px rgba(241,159,53,.14)}
-.site.complete{border-color:var(--success);background:linear-gradient(180deg,#fafffc,#eefaf2)}
-.site .flag{
-  position:absolute;top:10px;right:10px;padding:4px 9px;border-radius:999px;
-  font-size:12px;font-weight:900;background:#edf1f4
-}
-.progress{
-  height:16px;border-radius:999px;background:#e7edf0;overflow:hidden;border:1px solid #d9e3e7
-}
-.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#49b183);transition:.25s}
-.missionStage{
-  min-height:172px;border-radius:20px;padding:18px;
-  background:
-    linear-gradient(145deg,#fff7ea,#ffffff 35%,#eef9ff);
-  border:2px dashed #d6dee2
-}
-.missionArt{font-size:64px;text-align:center}
-.storyBox{
-  background:#eef8ff;border-left:6px solid #77bde4;border-radius:14px;padding:12px 14px;
-  color:#244a60
-}
-.tipBox{
-  background:#fff6e9;border-left:6px solid var(--wood);border-radius:14px;padding:12px 14px;
-  margin-top:10px
-}
-.qType{
-  font-size:12px;font-weight:900;letter-spacing:.08em;color:#35566b;
-  background:#edf4f7;padding:6px 10px;border-radius:999px;display:inline-block
-}
-.qText{font-size:22px;font-weight:800;line-height:1.38;margin:10px 0 0}
-.answerRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.answerRow input{flex:1;min-width:180px}
-.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.feedback{
-  margin-top:12px;min-height:28px;font-weight:800
-}
-.good{color:var(--success)}
-.bad{color:var(--danger)}
-.hint{color:#8a5d20}
-.taskList{display:grid;gap:10px}
-.taskCard{
-  border:1px solid var(--line);border-radius:16px;padding:12px;background:#fcfdfd
-}
-.inventory{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:10px
-}
-.loot{
-  background:#f5f8fb;border-radius:14px;padding:10px;border:1px solid #e3eaed
-}
-.loot strong{font-size:22px;display:block}
-.smallMuted{color:var(--muted);font-size:13px}
-.overlay{
-  position:fixed;inset:0;background:rgba(18,38,55,.72);display:grid;place-items:center;
-  padding:18px;z-index:20
-}
-.hidden{display:none!important}
-.modalCard{width:min(620px,100%)}
-.rewardGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.center{text-align:center}
-.spark{font-size:48px}
-.footerNote{margin-top:12px;color:var(--muted);font-size:12px}
-
-.loginShell{max-width:760px;margin:48px auto;padding:18px}
-.loginCard,.adminCard,.parentView{
-  background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.95);
-  border-radius:24px;padding:22px;box-shadow:var(--shadow)
-}
-.deviceNotice{
-  background:#fff5d9;border:1px solid #ecd58d;border-left:6px solid #d7a61e;
-  color:#554315;border-radius:14px;padding:13px 14px;margin:14px 0;font-weight:700
-}
-.loginGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.loginActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.roleBanner{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
-.materialsGoalBoard{margin-top:12px;display:grid;gap:8px}
-.materialGoal{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#f7fafb;border:1px solid #dde7ea;border-radius:12px;padding:9px 11px}
-.materialGoal.complete{background:#eef9f1;border-color:#b9dfc3}
-.materialGoal strong{font-size:14px}
-.materialGoal span{font-weight:900}
-.levelStatusBanner{margin-top:12px;padding:12px 14px;border-radius:14px;font-weight:900;text-align:center;letter-spacing:.02em}
-.levelStatusBanner.building{background:#eef5f7;color:#35566b;border:1px solid #d5e1e6}
-.levelStatusBanner.ready{background:#fff3cf;color:#6b4c00;border:2px solid #e2b93f}
-.levelStatusBanner.testing{background:#e8f2ff;color:#24527a;border:2px solid #8fb9df}
-.materialReward{margin-top:10px;padding:10px 12px;border-radius:12px;background:#eef9f1;border:1px solid #b9dfc3;font-weight:800}
-@media(max-width:720px){.loginGrid{grid-template-columns:1fr}}
-@media (max-width:980px){.layout{grid-template-columns:1fr}.header{grid-template-columns:1fr}}
-@media (max-width:680px){.town,.rewardGrid,.choices{grid-template-columns:1fr}.statusGrid{grid-template-columns:repeat(2,1fr)}}
-</style>
+<title>Builder Quest — Grade 3 Math Carpenter</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="authRoot">
-  <section id="nameScreen" class="loginShell">
-    <div class="loginCard">
-      <div class="center"><div class="spark">🏗️</div><h1>Builder Quest</h1><p>Enter your name to start or continue your own Builder City.</p></div>
-      <div class="deviceNotice">Progress is saved only on this device and browser. Using another device or browser will start separate progress. Clearing browser data may erase saved progress.</div>
-      <div class="loginGrid" style="grid-template-columns:1fr"><input id="playerNameInput" autocomplete="name" placeholder="Your name"></div>
-      <div class="loginActions"><button id="startPlayerBtn">Enter Builder City</button><button id="openParentSetupBtn" class="secondary">Parent Settings</button></div>
-      <div id="nameFeedback" class="feedback"></div>
+<div id="startScreen" class="start shell">
+  <div class="card">
+    <h1>🧰 Builder Quest</h1>
+    <p class="muted">Run a carpentry business while mastering Grade 3 Mathematics.</p>
+    <div class="notice"><strong>Device-specific progress.</strong> Enter the same name on this browser to resume. Clearing browser data may erase progress.</div>
+    <label><strong>Child's name</strong></label>
+    <input id="playerName" placeholder="e.g. Alia" autocomplete="off">
+    <div class="row" style="margin-top:12px">
+      <button id="enterBtn">Enter Workshop</button>
+      <button id="parentBtn" class="secondary">Parent Settings</button>
     </div>
-  </section>
-  <section id="parentDeviceScreen" class="loginShell hidden">
-    <div class="parentView">
-      <div class="roleBanner"><div><div class="qType">PARENT SETTINGS</div><h1 style="margin:8px 0 0">This Device</h1></div><button id="closeParentDeviceBtn" class="secondary">Back</button></div>
-      <div class="deviceNotice">One Parent Password applies to all child profiles saved in this browser on this device.</div>
-      <div id="parentPasswordSetupBox">
-        <h2>Set Parent Password</h2><p>Create the password parents will use to confirm consequences, approve rewards, and open parent controls.</p>
-        <div class="loginGrid" style="grid-template-columns:1fr"><input id="deviceParentPassword" type="password" placeholder="Parent password"><input id="deviceParentPasswordConfirm" type="password" placeholder="Confirm parent password"></div>
-        <div class="loginActions"><button id="saveDeviceParentPasswordBtn">Save Parent Password</button></div><div id="deviceParentFeedback" class="feedback"></div>
-      </div>
-      <div id="parentAccessBox" class="hidden"><h2>Parent Access</h2><p>Enter the Parent Password to view saved child profiles and change the device password.</p><div class="loginGrid" style="grid-template-columns:1fr"><input id="parentAccessPassword" type="password" placeholder="Parent password"></div><div class="loginActions"><button id="unlockParentControlsBtn">Open Parent Controls</button></div><div id="parentAccessFeedback" class="feedback"></div></div>
-      <div id="parentControlsBox" class="hidden"><h2>Saved Children</h2><div id="parentProfilesList"></div><h2 style="margin-top:22px">Change Parent Password</h2><div class="loginGrid" style="grid-template-columns:1fr"><input id="newDeviceParentPassword" type="password" placeholder="New parent password"><input id="newDeviceParentPasswordConfirm" type="password" placeholder="Confirm new parent password"></div><div class="loginActions"><button id="changeDeviceParentPasswordBtn">Change Password</button><button id="lockParentControlsBtn" class="secondary">Lock Parent Controls</button></div><div id="parentControlsFeedback" class="feedback"></div></div>
-    </div>
-  </section>
-</div>
-<div id="gameRoot" class="hidden">
-<main>
-<section class="header">
-  <div class="hero"><div class="title">Alia's Builder Quest</div><p class="sub">Storm Trouble broke Builder City. To rebuild it, the chief engineer must solve real Math 3 challenges to find every material needed for each project.</p><div class="heroRow"><div class="pill" id="rankPill">👷 Apprentice Builder</div><div class="pill" id="materialsPill">🧰 Materials: 0</div><div class="pill">📋 Mastery: 85% • 10 minimum • all skills checked</div></div></div>
-  <div class="statusCard">
-    <div class="sectionTitle"><h3 style="margin:0">Workshop Dashboard</h3><div class="row"><span class="pill" id="currentUserPill">Student</span><button class="secondary" id="logoutBtn">Change player</button></div></div>
-    <div class="statusGrid"><div class="stat"><small>Current zone</small><strong id="zoneNum">1</strong></div><div class="stat"><small>Materials gathered</small><strong id="buildPct">0%</strong></div><div class="stat"><small>Correct</small><strong id="correctCount">0</strong></div><div class="stat"><small>Attempts</small><strong id="attemptCount">0</strong></div></div>
-    <div style="margin-top:14px"><small class="smallMuted">Materials progress</small><div class="progress" style="margin-top:6px"><div id="projectBar"></div></div><div id="materialsGoalBoard" class="materialsGoalBoard"></div><div id="levelStatusBanner" class="levelStatusBanner building">🧰 GATHER THE MATERIALS</div></div>
-    <div class="footerNote">Gather every required material first. Then complete the build and pass the Foreman's Inspection with at least 85% to unlock the next project.</div>
   </div>
-</section>
-<section class="layout">
-  <section class="mapCard"><div class="sectionTitle"><h2 style="margin:0">Builder City Map</h2><span class="pill" id="projectPill">Project 1</span></div><div class="town" id="townMap"></div></section>
-  <section class="missionCard">
-    <div class="sectionTitle"><div><div class="qType" id="modeLabel">MISSION</div><h2 style="margin:8px 0 0 0" id="missionTitle">Tool Bench Build</h2></div><span class="pill" id="questionCounter">Practice</span></div>
-    <div class="missionStage"><div class="missionArt" id="missionArt">🧰</div><div class="storyBox" id="storyBox"></div><div class="tipBox" id="tipBox"></div><div class="qText" id="questionText"></div><div id="inputWrap" class="answerRow"><input id="answerInput" inputmode="numeric" autocomplete="off" placeholder="Type your answer"><button id="checkBtn">Solve supply job</button></div><div id="choiceWrap" class="choices hidden"></div><div class="feedback" id="feedback"></div><div class="answerRow"><button id="nextBtn" class="secondary hidden">Next supply job</button></div></div>
-    <div id="masteryBox" class="taskCard hidden" style="margin-top:14px"><h3 style="margin-bottom:8px">Foreman's Inspection</h3><p class="smallMuted" style="font-size:14px">All materials are ready. The inspection has at least 10 questions and keeps going until every skill in this section has been checked at least twice. Score at least 85% to unlock the next project.</p><button id="startTestBtn" class="gold">Start inspection test</button></div>
-  </section>
-  <aside class="sideCard"><div class="sectionTitle"><h3 style="margin:0">Mission Log</h3><span class="pill">🔧 Builder theme</span></div><div id="taskList" class="taskList"></div><h3 style="margin:16px 0 8px">Workshop Totals</h3><div class="inventory"><div class="loot"><small>Wood-type finds</small><strong id="woodCount">0</strong></div><div class="loot"><small>Hardware finds</small><strong id="boltCount">0</strong></div><div class="loot"><small>Mechanical finds</small><strong id="gearCount">0</strong></div><div class="loot"><small>Completed projects</small><strong id="starCount">0</strong></div></div><div class="taskCard" style="margin-top:16px;background:#fff6e8"><strong>Foreman Bolt says:</strong><p id="coachText" style="margin:8px 0 0 0"></p></div></aside>
-</section>
-</main>
 </div>
-<div class="overlay hidden" id="gateOverlay"><div class="modalCard"><div class="center"><div class="spark">🔐</div><h2>Show Mommy for Confirmation</h2></div><p>The inspection score was below 85%. Complete this consequence first:</p><div class="taskCard" style="background:#fff4f4;border-color:#eed0d0"><strong id="consequenceText"></strong></div><div class="answerRow"><input id="gatePassword" type="password" placeholder="Mommy password"><button class="warning" id="confirmGateBtn">Confirm done</button></div><div class="feedback" id="gateFeedback"></div></div></div>
-<div class="overlay hidden" id="rewardOverlay"><div class="modalCard"><div class="center"><div class="spark">🏆</div><h2>Perfect 100% Mastery</h2><p>Choose one reward for Mommy to approve.</p></div><div class="rewardGrid"><button class="choice" data-reward="30 minutes school-day screen time">📺<br><strong>30 min screen time</strong></button><button class="choice" data-reward="Cash reward chosen by Mommy">💵<br><strong>Cash</strong></button><button class="choice" data-reward="Food reward chosen by Mommy">🍜<br><strong>Food</strong></button></div><div id="rewardApproval" class="hidden" style="margin-top:16px"><div class="taskCard" style="background:#fffdf1;border-color:#eadca8"><strong id="selectedReward"></strong></div><div class="answerRow"><input id="rewardPassword" type="password" placeholder="Mommy password"><button id="approveRewardBtn" class="gold">Approve reward</button></div><div class="feedback" id="rewardFeedback"></div></div></div></div>
-<script>
-const PROFILE_KEY="builder_quest_profiles_v7";
-const DEVICE_PARENT_KEY="builder_quest_parent_v7";
-const $=id=>document.getElementById(id);
-const consequences=["Household chore","1 song number","Dance","Read a book"];
-const zones=[
-{name:"Tool Bench Build",icon:"🧰",project:"Carpenter's Tool Bench",story:"The workshop has the blueprint, but the shelves are empty. Earn every material by solving the jobs that supply each part.",skill:"Multiplication tables 2, 3, 4, 5",materials:[{id:"plank",name:"Wood Planks",icon:"🪵",need:4},{id:"screw",name:"Screw Packs",icon:"🔩",need:3},{id:"bracket",name:"Metal Brackets",icon:"📐",need:2}]},
-{name:"Tiny House Framing",icon:"🏠",project:"Tiny House Frame",story:"The frame crew needs lumber, panels, fasteners, and hinges. Each supply station has its own math lock.",skill:"Tables 6–10 + multiplication properties",materials:[{id:"lumber",name:"Lumber Bundles",icon:"🪵",need:5},{id:"panel",name:"Wall Panels",icon:"🧱",need:4},{id:"fastener",name:"Fastener Boxes",icon:"🔩",need:3},{id:"hinge",name:"Door Hinges",icon:"🚪",need:2}]},
-{name:"Supply Depot Estimator",icon:"📦",project:"Supply Shed",story:"The depot must estimate correctly before trucks release their loads.",skill:"Estimating products",materials:[{id:"beam",name:"Beam Bundles",icon:"🏗️",need:4},{id:"roof",name:"Roof Sheets",icon:"🏠",need:3},{id:"cement",name:"Cement Bags",icon:"🧱",need:4}]},
-{name:"Engine Bay Repair",icon:"🚗",project:"Engine Cart",story:"The engine cart is missing key mechanical parts. Exact multiplication unlocks each locker.",skill:"Multiplication with 1-digit multiplier",materials:[{id:"gear",name:"Gear Sets",icon:"⚙️",need:4},{id:"bolt",name:"Bolt Trays",icon:"🔩",need:4},{id:"wire",name:"Wire Coils",icon:"🔌",need:3}]},
-{name:"Garage Construction",icon:"🔧",project:"Service Garage",story:"The garage needs structural parts in larger quantities. Exact 2-digit multiplication controls every shipment.",skill:"Multiplication with 2-digit multiplier",materials:[{id:"tile",name:"Floor Tile Crates",icon:"◻️",need:4},{id:"steel",name:"Steel Beam Loads",icon:"🏗️",need:4},{id:"shelf",name:"Storage Rack Kits",icon:"🗄️",need:3}]},
-{name:"Builder City Control Room",icon:"🏙️",project:"Builder City Control Room",story:"The final control room needs patterned circuits, signs, and support modules.",skill:"Patterns + problem solving",materials:[{id:"circuit",name:"Circuit Modules",icon:"🔁",need:4},{id:"signal",name:"Signal Panels",icon:"📡",need:4},{id:"support",name:"Support Frames",icon:"🏙️",need:4}]}
-];
-function safeParse(raw,fallback){try{return raw?JSON.parse(raw):fallback}catch{return fallback}}
-function profiles(){return safeParse(localStorage.getItem(PROFILE_KEY),{})}
-function saveProfiles(v){localStorage.setItem(PROFILE_KEY,JSON.stringify(v))}
-function parentPassword(){return localStorage.getItem(DEVICE_PARENT_KEY)||""}
-let session={key:null,name:null};
-let state={level:0,collected:{},correct:0,attempts:0,wood:0,bolts:0,gears:0,stars:0,inTest:false,testIndex:0,testCorrect:0,testQuestions:[],current:null};
-function blank(){return {level:0,collected:{},correct:0,attempts:0,wood:0,bolts:0,gears:0,stars:0,pendingConsequence:null,pendingReward:null}}
-function keyFor(n){return n.trim().replace(/\s+/g," ").toLowerCase()}
-function save(){if(!session.key)return;const p=profiles();const prev=p[session.key]?.progress||blank();p[session.key]={name:session.name,progress:{...blank(),...prev,level:state.level,collected:state.collected,correct:state.correct,attempts:state.attempts,wood:state.wood,bolts:state.bolts,gears:state.gears,stars:state.stars}};saveProfiles(p)}
-function load(k){const p=profiles()[k]?.progress||blank();Object.assign(state,{level:p.level||0,collected:p.collected||{},correct:p.correct||0,attempts:p.attempts||0,wood:p.wood||0,bolts:p.bolts||0,gears:p.gears||0,stars:p.stars||0,inTest:false})}
-function r(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=r(0,i);[a[i],a[j]]=[a[j],a[i]]}return a}
-function total(z){return z.materials.reduce((s,m)=>s+m.need,0)}
-function gathered(z){return z.materials.reduce((s,m)=>s+Math.min(m.need,state.collected[m.id]||0),0)}
-function complete(z){return z.materials.every(m=>(state.collected[m.id]||0)>=m.need)}
-function needed(){const z=zones[state.level];const a=z.materials.filter(m=>(state.collected[m.id]||0)<m.need);if(!a.length)return null;a.sort((x,y)=>((state.collected[x.id]||0)/x.need)-((state.collected[y.id]||0)/y.need));return a[r(0,Math.min(1,a.length-1))]}
-function materialPrompt(m){const p={plank:"The sawmill will release one plank if you solve the cut-list problem.",screw:"The hardware cage will release one screw pack if you verify the box count.",bracket:"The metal shop will release one bracket if you solve the mounting plan.",lumber:"The timber truck needs the correct load count before unloading.",panel:"The panel station needs the correct frame calculation.",fastener:"The fastener cabinet opens only after the multiplication check.",hinge:"The door station requires the correct property or product.",beam:"Estimate the shipment correctly to release a beam bundle.",roof:"Estimate the roof-sheet load before the truck departs.",cement:"Estimate the cement order so the depot does not overstock.",gear:"The gearbox locker opens when the parts total is correct.",bolt:"The mechanic releases a bolt tray after an exact count.",wire:"The wiring bay needs the total checked.",tile:"The tile supplier needs an exact 2-digit product.",steel:"The steel yard needs the exact beam count.",shelf:"The rack supplier needs the exact kit total.",circuit:"Complete the pattern to unlock a circuit module.",signal:"Solve the signal sequence to unlock a signal panel.",support:"Solve the construction problem to unlock a support frame."};return p[m.id]||"Solve the supply job to earn this material."}
-function makeQuestion(level=state.level,material=needed()){
- let q,answer,tip,choices=null;
- if(level===0){const a=r(2,5),b=r(2,10);q=`A parts rack has ${a} equal rows with ${b} pieces in each row. How many pieces are there?`;answer=a*b;tip=`Use ${a} × ${b}. Equal rows mean equal groups.`}
- else if(level===1){const type=r(1,3);if(type===1){const a=r(6,10),b=r(2,10);q=`A wall section needs ${a} studs. There are ${b} equal sections. How many studs are needed?`;answer=a*b;tip=`Use the ${a} times table.`}else if(type===2){const a=r(2,9),b=r(2,9);q=`Which property explains why ${a} × ${b} = ${b} × ${a}?`;answer="Commutative property";choices=shuffle(["Commutative property","Identity property","Zero property","Associative property"]);tip="The factors switch order but the product stays the same."}else{const a=r(2,10);q=`What is ${a} × 1?`;answer=a;choices=shuffle([a,1,0,a+1]);tip="A number multiplied by 1 stays the same."}}
- else if(level===2){const a=r(12,48),b=r(2,9),rounded=Math.round(a/10)*10;q=`Estimate ${a} × ${b} by rounding ${a} to the nearest ten.`;answer=rounded*b;tip=`${a} rounds to ${rounded}, then multiply.`}
- else if(level===3){const a=r(12,89),b=r(2,9);q=`A mechanic needs ${a} fasteners for one kit. How many fasteners are needed for ${b} kits?`;answer=a*b;tip="Multiply ones first, regroup if needed, then tens."}
- else if(level===4){const a=r(11,39),b=r(11,25);q=`A garage section has ${a} rows with ${b} parts in each row. How many parts are needed?`;answer=a*b;tip="Use partial products: ones, tens, then add."}
- else{const t=r(1,3);if(t===1){const s=r(3,12),d=r(2,7);q=`Complete the increasing pattern: ${s}, ${s+d}, ${s+2*d}, ${s+3*d}, __`;answer=s+4*d;tip=`It increases by ${d} each time.`}else if(t===2){const s=r(35,70),d=r(2,8);q=`Complete the decreasing pattern: ${s}, ${s-d}, ${s-2*d}, ${s-3*d}, __`;answer=s-4*d;tip=`It decreases by ${d} each time.`}else{const a=r(2,9),b=r(3,9);q=`Builder City needs ${a} support frames. Each frame uses ${b} beams. How many beams are needed?`;answer=a*b;tip="Translate the story into equal groups."}}
- return {q,answer,tip,choices,material};
-}
-function render(){const z=zones[state.level],g=gathered(z),t=total(z),pct=Math.round(g/t*100);$("zoneNum").textContent=state.level+1;$("buildPct").textContent=pct+"%";$("correctCount").textContent=state.correct;$("attemptCount").textContent=state.attempts;$("projectBar").style.width=pct+"%";$("projectPill").textContent=`Project ${state.level+1}: ${z.project}`;$("materialsPill").textContent=`🧰 Materials: ${g}/${t}`;$("materialsGoalBoard").innerHTML=z.materials.map(m=>{const h=Math.min(m.need,state.collected[m.id]||0),d=h>=m.need;return `<div class="materialGoal ${d?"complete":""}"><strong>${m.icon} ${m.name}</strong><span>${h}/${m.need}${d?" ✓":""}</span></div>`}).join("");const b=$("levelStatusBanner");if(state.inTest){b.className="levelStatusBanner testing";b.textContent="📋 FOREMAN'S INSPECTION IN PROGRESS"}else if(complete(z)){b.className="levelStatusBanner ready";b.textContent="🛠️ ALL MATERIALS READY — START INSPECTION"}else{b.className="levelStatusBanner building";b.textContent="🧰 GATHER THE MATERIALS"}$("masteryBox").classList.toggle("hidden",!complete(z)||state.inTest);$("missionTitle").textContent=z.name;$("missionArt").textContent=z.icon;$("taskList").innerHTML=[complete(z)?`All materials gathered for ${z.project}. Start the Foreman's Inspection.`:`Main objective: gather every material needed for ${z.project}.`,`Skill focus: ${z.skill}.`,`Perfect inspection = Mommy-approved reward.`].map(x=>`<div class="taskCard">${x}</div>`).join("");$("woodCount").textContent=state.wood;$("boltCount").textContent=state.bolts;$("gearCount").textContent=state.gears;$("starCount").textContent=state.stars;$("townMap").innerHTML=zones.map((x,i)=>`<div class="site ${i<state.level?"complete":i===state.level?"current":"locked"}"><div class="flag">${i<state.level?"Built":i===state.level?"Current":"Locked"}</div><h4>${x.icon} ${x.project}</h4><small>${x.skill}</small><div class="art">${x.icon}</div></div>`).join("");$("coachText").textContent=complete(z)?"Materials complete. The inspection decides whether this project is truly finished.":"Every supply job earns a specific material. Check the shortage list and think before you calculate.";save()}
-function showQuestion(q){state.current=q;$("feedback").textContent="";$("feedback").className="feedback";$("storyBox").textContent=q.material?`${materialPrompt(q.material)} Goal reward: ${q.material.icon} ${q.material.name}.`:"Foreman's Inspection";$("tipBox").innerHTML=`<strong>Builder tip:</strong> ${q.tip}`;$("questionText").textContent=q.q;$("answerInput").value="";$("answerInput").disabled=false;$("checkBtn").disabled=false;$("nextBtn").classList.add("hidden");$("choiceWrap").innerHTML="";if(q.choices){$("inputWrap").classList.add("hidden");$("choiceWrap").classList.remove("hidden");q.choices.forEach(c=>{const b=document.createElement("button");b.className="choice";b.textContent=c;b.onclick=()=>submit(c);$("choiceWrap").appendChild(b)})}else{$("choiceWrap").classList.add("hidden");$("inputWrap").classList.remove("hidden");$("answerInput").focus()}}
-function submit(v=null){const raw=v!==null?v:$("answerInput").value.trim();if(raw===""){return}const ans=typeof state.current.answer==="number"?Number(raw):String(raw);state.attempts++;const ok=ans===state.current.answer;if(ok){state.correct++;$("feedback").className="feedback good";if(state.inTest){state.testCorrect++;$("feedback").textContent="Correct. Inspection item cleared."}else{const m=state.current.material;if(m){state.collected[m.id]=(state.collected[m.id]||0)+1;const slot=(gathered(zones[state.level]))%3;if(slot===1)state.wood++;else if(slot===2)state.bolts++;else state.gears++;$("feedback").innerHTML=`Correct.<div class="materialReward">Added: ${m.icon} ${m.name}</div>`}}}else{$("feedback").className="feedback hint";$("feedback").textContent=`Not yet. Hint: ${state.current.tip}`}$("answerInput").disabled=true;$("checkBtn").disabled=true;[...$("choiceWrap").querySelectorAll("button")].forEach(b=>b.disabled=true);$("nextBtn").classList.remove("hidden");render()}
-function next(){if(state.inTest){state.testIndex++;if(state.testIndex>=state.testQuestions.length)return finishTest();$("questionCounter").textContent=`Question ${state.testIndex+1} of ${state.testQuestions.length}`;showQuestion(state.testQuestions[state.testIndex])}else{showQuestion(makeQuestion())}}
-function startTest(){state.inTest=true;state.testIndex=0;state.testCorrect=0;const counts=[10,16,10,10,12,12];state.testQuestions=Array.from({length:counts[state.level]},()=>makeQuestion(state.level,null));$("questionCounter").textContent=`Question 1 of ${state.testQuestions.length}`;render();showQuestion(state.testQuestions[0])}
-function finishTest(){state.inTest=false;const score=Math.round(state.testCorrect/state.testQuestions.length*100);$("questionCounter").textContent=`Score: ${score}%`;if(score===100){$("rewardOverlay").classList.remove("hidden")}else if(score>=85){state.stars++;if(state.level<zones.length-1){state.level++;state.collected={};render();showQuestion(makeQuestion())}}else{$("consequenceText").textContent=consequences[r(0,consequences.length-1)];$("gateOverlay").classList.remove("hidden")}render()}
-$("checkBtn").onclick=()=>submit();$("nextBtn").onclick=next;$("answerInput").addEventListener("keydown",e=>{if(e.key!=="Enter")return;e.preventDefault();if(!$("checkBtn").disabled)submit();else if(!$("nextBtn").classList.contains("hidden"))next()});$("startTestBtn").onclick=startTest;
-function showEntry(){$("nameScreen").classList.remove("hidden");$("parentDeviceScreen").classList.add("hidden");$("gameRoot").classList.add("hidden")}
-$("startPlayerBtn").onclick=()=>{const n=$("playerNameInput").value.trim().replace(/\s+/g," ");if(!n)return;const k=keyFor(n),p=profiles();if(!p[k])p[k]={name:n,progress:blank()};saveProfiles(p);session={key:k,name:p[k].name};load(k);$("currentUserPill").textContent=`👷 ${session.name}`;$("nameScreen").classList.add("hidden");$("gameRoot").classList.remove("hidden");render();showQuestion(makeQuestion())};$("playerNameInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("startPlayerBtn").click()});$("logoutBtn").onclick=()=>{save();session={key:null,name:null};showEntry()};
-$("openParentSetupBtn").onclick=()=>{$("nameScreen").classList.add("hidden");$("parentDeviceScreen").classList.remove("hidden");const has=!!parentPassword();$("parentPasswordSetupBox").classList.toggle("hidden",has);$("parentAccessBox").classList.toggle("hidden",!has);$("parentControlsBox").classList.add("hidden")};$("closeParentDeviceBtn").onclick=showEntry;$("saveDeviceParentPasswordBtn").onclick=()=>{const a=$("deviceParentPassword").value,b=$("deviceParentPasswordConfirm").value;if(a.length<4||a!==b){$("deviceParentFeedback").textContent="Passwords must match and be at least 4 characters.";return}localStorage.setItem(DEVICE_PARENT_KEY,a);$("deviceParentFeedback").textContent="Parent Password saved."};$("unlockParentControlsBtn").onclick=()=>{if($("parentAccessPassword").value!==parentPassword()){ $("parentAccessFeedback").textContent="Incorrect Parent Password.";return}$("parentAccessBox").classList.add("hidden");$("parentControlsBox").classList.remove("hidden");const p=profiles();$("parentProfilesList").innerHTML=Object.values(p).map(x=>`<div class="taskCard"><strong>${x.name}</strong><p class="smallMuted">Zone ${(x.progress?.level||0)+1} • ${x.progress?.correct||0} correct • ${x.progress?.attempts||0} attempts</p></div>`).join("")||'<div class="taskCard">No saved children yet.</div>'};$("lockParentControlsBtn").onclick=()=>{$("parentControlsBox").classList.add("hidden");$("parentAccessBox").classList.remove("hidden")};$("changeDeviceParentPasswordBtn").onclick=()=>{const a=$("newDeviceParentPassword").value,b=$("newDeviceParentPasswordConfirm").value;if(a.length>=4&&a===b){localStorage.setItem(DEVICE_PARENT_KEY,a);$("parentControlsFeedback").textContent="Parent Password changed."}};
-$("confirmGateBtn").onclick=()=>{if($("gatePassword").value!==parentPassword()){ $("gateFeedback").textContent="Incorrect Parent Password.";return}$("gatePassword").value="";$("gateOverlay").classList.add("hidden");showQuestion(makeQuestion())};document.querySelectorAll("[data-reward]").forEach(b=>b.onclick=()=>{$("selectedReward").textContent=`Selected reward: ${b.dataset.reward}`;$("rewardApproval").classList.remove("hidden")});$("approveRewardBtn").onclick=()=>{if($("rewardPassword").value!==parentPassword()){ $("rewardFeedback").textContent="Incorrect Parent Password.";return}$("rewardOverlay").classList.add("hidden");state.stars++;if(state.level<zones.length-1){state.level++;state.collected={}}render();showQuestion(makeQuestion())};
-showEntry();
-</script>
+
+<main id="game" class="shell hidden">
+  <div class="header">
+    <section class="card hero">
+      <div class="row" style="justify-content:space-between;align-items:flex-start">
+        <div>
+          <h1 style="font-size:34px">Builder Quest</h1>
+          <p id="storyLead">Start with a toolbox. Then grow from house calls to rooms, houses, and buildings as your math skills grow.</p>
+        </div>
+        <button id="changePlayer" class="secondary">Change player</button>
+      </div>
+      <div class="pills">
+        <span class="pill" id="playerPill">👷 Player</span>
+        <span class="pill" id="tierPill">🔨 Apprentice</span>
+        <span class="pill" id="quarterPill">📘 Quarter 1</span>
+      </div>
+    </section>
+    <section class="card">
+      <div class="stats">
+        <div class="stat"><small>Business cash</small><strong id="cashStat">₱0</strong></div>
+        <div class="stat"><small>Contracts completed</small><strong id="jobsStat">0</strong></div>
+        <div class="stat"><small>Skills mastered</small><strong id="masteredStat">0</strong></div>
+        <div class="stat"><small>Overall evidence</small><strong id="evidenceStat">0</strong></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="layout">
+    <aside class="card">
+      <h3>Business Path</h3>
+      <div id="bizPath" class="bizPath"></div>
+      <h3 style="margin-top:16px">Current Curriculum</h3>
+      <div id="skillList" class="skillList"></div>
+    </aside>
+
+    <section class="card">
+      <div id="toolboxIntro" class="job hidden"></div>
+      <div id="jobArea" class="job hidden">
+        <div class="jobHeader">
+          <div>
+            <span class="badge" id="jobType">HOUSE CALL</span>
+            <h2 id="jobTitle" style="margin:7px 0 5px">Customer Job</h2>
+            <p id="jobDesc" class="muted"></p>
+          </div>
+          <div class="jobIcon" id="jobIcon">🪚</div>
+        </div>
+        <div class="step">
+          <div class="context" id="contextLabel">DIAGNOSE</div>
+          <div id="questionVisual"></div>
+          <div class="q" id="questionText"></div>
+          <div id="choices" class="choices hidden"></div>
+          <div id="inputAnswer" class="answerRow hidden">
+            <input id="answerInput" inputmode="numeric" autocomplete="off" placeholder="Your answer">
+            <button id="checkBtn">Check</button>
+          </div>
+          <div id="feedback" class="feedback"></div>
+          <div class="row" style="margin-top:8px">
+            <button id="hintBtn" class="secondary">Hint</button>
+            <button id="nextBtn" class="gold hidden">Continue job</button>
+          </div>
+        </div>
+        <div class="jobFooter">
+          <div>
+            <small class="muted">Job progress</small>
+            <div class="progress" style="width:240px;max-width:100%"><div id="jobProgress"></div></div>
+          </div>
+          <div id="jobMoney" class="money">₱0</div>
+        </div>
+      </div>
+      <div id="completionCard" class="job hidden"></div>
+    </section>
+
+    <aside class="card">
+      <h3>Workshop</h3>
+      <div class="ledger">
+        <div><span class="muted">Current focus</span><div id="focusSkill" style="font-weight:900"></div></div>
+        <div><span class="muted">Mastery estimate</span><div id="focusMastery" style="font-size:24px;font-weight:900">0%</div><div class="masteryBar"><div id="focusBar"></div></div></div>
+        <div><span class="muted">Independent evidence</span><div id="focusEvidence" style="font-weight:900">0</div></div>
+      </div>
+      <div class="lockReason" id="adaptiveNote">The game will keep giving this skill in different forms until there is enough evidence of mastery.</div>
+      <h3 style="margin-top:16px">Tools & Materials</h3>
+      <div id="materials" class="materials"></div>
+      <button id="curriculumBtn" class="secondary" style="margin-top:14px;width:100%">View Grade 3 Curriculum Map</button>
+    </aside>
+  </div>
+</main>
+
+<div id="parentModal" class="modal hidden">
+  <div class="card">
+    <h2>Parent Settings</h2>
+    <div id="parentSetup"></div>
+    <div class="row" style="margin-top:12px">
+      <button id="closeParent" class="secondary">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="curriculumModal" class="modal hidden">
+  <div class="card" style="max-height:88vh;overflow:auto">
+    <h2>Grade 3 Mathematics Map</h2>
+    <p class="muted">Based on the current DepEd MATATAG Grade 3 Mathematics curriculum. The game unlocks curriculum topics in prerequisite order while contracts provide the assessment evidence.</p>
+    <div id="curriculumMap" class="curriculum"></div>
+    <div class="sourceNote">Curriculum reference: Department of Education MATATAG Mathematics Curriculum Guide (Grades 1–10), Grade 3, August 2023. Grade 3 is in the MATATAG implementation schedule for SY 2026–2027.</div>
+    <button id="closeCurriculum" class="secondary" style="margin-top:12px">Close</button>
+  </div>
+</div>
+
+<div id="gateModal" class="modal hidden">
+  <div class="card">
+    <h2 id="gateTitle">Show Mommy for Confirmation</h2>
+    <p id="gateText"></p>
+    <input id="gatePassword" type="password" placeholder="Parent password">
+    <button id="gateConfirm" style="margin-top:10px;width:100%">Parent confirms</button>
+  </div>
+</div>
+<script src="config.js"></script>
+<script src="questions.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
