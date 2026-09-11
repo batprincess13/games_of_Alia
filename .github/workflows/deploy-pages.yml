@@ -1,4 +1,4 @@
-name: Deploy Builder Quest
+name: Deploy Games of Alia
 
 on:
   push:
@@ -23,6 +23,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Build install icons
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet pillow
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          src = Path('icons/games-of-alia-180.png')
+          img = Image.open(src).convert('RGB')
+          for size in (192, 512):
+              out = img.resize((size, size), Image.Resampling.LANCZOS)
+              out.save(Path('icons') / f'games-of-alia-{size}.png', 'PNG', optimize=True)
+          PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
