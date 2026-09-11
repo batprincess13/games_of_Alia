@@ -1,8 +1,8 @@
 const fs=require('fs');
 const vm=require('vm');
-const html=fs.readFileSync('index.html','utf8');
+const html=fs.readFileSync('builder-quest/index.html','utf8');
 const ids=new Set([...html.matchAll(/\bid=["']([^"']+)["']/g)].map(m=>m[1]));
-const requiredScripts=['config.js','questions.js','app.js'];
+const requiredScripts=['../config.js','../questions.js','../app.js'];
 let last=-1;
 for(const src of requiredScripts){
   const marker=`<script src="${src}"></script>`;
@@ -21,4 +21,8 @@ const sandbox={console,Math,Date,JSON,String,Number,Object,Array,Set,Map,Boolean
 vm.createContext(sandbox);
 const source=['config.js','questions.js','app.js'].map(f=>fs.readFileSync(f,'utf8')).join('\n');
 vm.runInContext(source,sandbox,{filename:'builder-quest-page-smoke.js'});
-console.log(`Page smoke test passed with ${ids.size} DOM ids and ordered game scripts.`);
+const home=fs.readFileSync('index.html','utf8');
+if(!home.includes('Games of Alia'))throw new Error('Homepage brand missing');
+if(!home.includes('href="builder-quest/"'))throw new Error('Homepage Builder Quest link missing');
+if(!home.includes('Play with purpose.'))throw new Error('Homepage purpose tagline missing');
+console.log(`Homepage and Builder Quest smoke tests passed with ${ids.size} game DOM ids.`);
