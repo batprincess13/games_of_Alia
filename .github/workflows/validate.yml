@@ -1,4 +1,4 @@
-name: Validate Builder Quest
+name: Validate Games of Alia
 on:
   push:
     branches: [main]
@@ -22,14 +22,16 @@ jobs:
           node --check tests/smoke-page.js
       - name: Validate learning engine and encounter capacity
         run: node tests/validate-engine.js
-      - name: Smoke test page load and DOM contract
+      - name: Smoke test homepage and Builder Quest page
         run: node tests/smoke-page.js
-      - name: Check page architecture
+      - name: Check site architecture
         run: |
-          grep -q '<script src="config.js"></script>' index.html
-          grep -q '<script src="questions.js"></script>' index.html
-          grep -q '<script src="app.js"></script>' index.html
-          ! grep -q '^<script>$' index.html
+          grep -q 'Games of Alia' index.html
+          grep -q 'href="builder-quest/"' index.html
+          grep -q '<script src="../config.js"></script>' builder-quest/index.html
+          grep -q '<script src="../questions.js"></script>' builder-quest/index.html
+          grep -q '<script src="../app.js"></script>' builder-quest/index.html
+          ! grep -q '^<script>$' builder-quest/index.html
       - name: Check governing files
         run: |
           test -s README.md
