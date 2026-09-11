@@ -15,61 +15,229 @@
         <h1>Builder Quest</h1>
         <p>Enter your name to start or continue your own Builder City.</p>
       </div>
-      <div class="deviceNotice">Progress is saved only on this device and browser. Using another device or browser will start separate progress. Clearing browser data may erase saved progress.</div>
-      <div class="loginGrid" style="grid-template-columns:1fr"><input id="playerNameInput" autocomplete="name" placeholder="Your name"></div>
-      <div class="loginActions"><button id="startPlayerBtn">Enter Builder City</button><button id="openParentSetupBtn" class="secondary">Parent Settings</button></div>
+
+      <div class="deviceNotice">
+        Progress is saved only on this device and browser. Using another device or browser will start separate progress. Clearing browser data may erase saved progress.
+      </div>
+
+      <div class="loginGrid" style="grid-template-columns:1fr">
+        <input id="playerNameInput" autocomplete="name" placeholder="Your name">
+      </div>
+      <div class="loginActions">
+        <button id="startPlayerBtn">Enter Builder City</button>
+        <button id="openParentSetupBtn" class="secondary">Parent Settings</button>
+      </div>
       <div id="nameFeedback" class="feedback"></div>
     </div>
   </section>
+
   <section id="parentDeviceScreen" class="loginShell hidden">
     <div class="parentView">
-      <div class="roleBanner"><div><div class="qType">PARENT SETTINGS</div><h1 style="margin:8px 0 0">This Device</h1></div><button id="closeParentDeviceBtn" class="secondary">Back</button></div>
-      <div class="deviceNotice">One Parent Password applies to all child profiles saved in this browser on this device.</div>
+      <div class="roleBanner">
+        <div>
+          <div class="qType">PARENT SETTINGS</div>
+          <h1 style="margin:8px 0 0">This Device</h1>
+        </div>
+        <button id="closeParentDeviceBtn" class="secondary">Back</button>
+      </div>
+
+      <div class="deviceNotice">
+        One Parent Password applies to all child profiles saved in this browser on this device.
+      </div>
+
       <div id="parentPasswordSetupBox">
         <h2 id="parentPasswordHeading">Set Parent Password</h2>
         <p id="parentPasswordHelp">Create the password parents will use to confirm consequences, approve rewards, and open parent controls.</p>
-        <div class="loginGrid" style="grid-template-columns:1fr"><input id="deviceParentPassword" type="password" placeholder="Parent password"><input id="deviceParentPasswordConfirm" type="password" placeholder="Confirm parent password"></div>
-        <div class="loginActions"><button id="saveDeviceParentPasswordBtn">Save Parent Password</button></div><div id="deviceParentFeedback" class="feedback"></div>
+        <div class="loginGrid" style="grid-template-columns:1fr">
+          <input id="deviceParentPassword" type="password" placeholder="Parent password">
+          <input id="deviceParentPasswordConfirm" type="password" placeholder="Confirm parent password">
+        </div>
+        <div class="loginActions">
+          <button id="saveDeviceParentPasswordBtn">Save Parent Password</button>
+        </div>
+        <div id="deviceParentFeedback" class="feedback"></div>
       </div>
+
       <div id="parentAccessBox" class="hidden">
-        <h2>Parent Access</h2><p>Enter the Parent Password to view saved child profiles and change the device password.</p>
-        <div class="loginGrid" style="grid-template-columns:1fr"><input id="parentAccessPassword" type="password" placeholder="Parent password"></div>
-        <div class="loginActions"><button id="unlockParentControlsBtn">Open Parent Controls</button></div><div id="parentAccessFeedback" class="feedback"></div>
+        <h2>Parent Access</h2>
+        <p>Enter the Parent Password to view saved child profiles and change the device password.</p>
+        <div class="loginGrid" style="grid-template-columns:1fr">
+          <input id="parentAccessPassword" type="password" placeholder="Parent password">
+        </div>
+        <div class="loginActions">
+          <button id="unlockParentControlsBtn">Open Parent Controls</button>
+        </div>
+        <div id="parentAccessFeedback" class="feedback"></div>
       </div>
+
       <div id="parentControlsBox" class="hidden">
-        <h2>Saved Children</h2><div id="parentProfilesList"></div>
+        <h2>Saved Children</h2>
+        <div id="parentProfilesList"></div>
+
         <h2 style="margin-top:22px">Change Parent Password</h2>
-        <div class="loginGrid" style="grid-template-columns:1fr"><input id="newDeviceParentPassword" type="password" placeholder="New parent password"><input id="newDeviceParentPasswordConfirm" type="password" placeholder="Confirm new parent password"></div>
-        <div class="loginActions"><button id="changeDeviceParentPasswordBtn">Change Password</button><button id="lockParentControlsBtn" class="secondary">Lock Parent Controls</button></div><div id="parentControlsFeedback" class="feedback"></div>
+        <div class="loginGrid" style="grid-template-columns:1fr">
+          <input id="newDeviceParentPassword" type="password" placeholder="New parent password">
+          <input id="newDeviceParentPasswordConfirm" type="password" placeholder="Confirm new parent password">
+        </div>
+        <div class="loginActions">
+          <button id="changeDeviceParentPasswordBtn">Change Password</button>
+          <button id="lockParentControlsBtn" class="secondary">Lock Parent Controls</button>
+        </div>
+        <div id="parentControlsFeedback" class="feedback"></div>
       </div>
     </div>
   </section>
 </div>
+
 <div id="gameRoot" class="hidden">
 <main>
   <section class="header">
-    <div class="hero"><div class="title">Alia's Builder Quest</div><p class="sub">Storm Trouble broke Builder City. To rebuild it, Alia becomes the chief engineer. She must solve real Math 3 challenges to cut lumber, load trucks, repair engines, read blueprints, and complete each construction site.</p><div class="heroRow"><div class="pill" id="rankPill">👷 Apprentice Builder</div><div class="pill" id="materialsPill">🔩 Materials: 0</div><div class="pill" id="masteryPill">📋 Mastery: 85% • 10 minimum • all skills checked</div></div></div>
+    <div class="hero">
+      <div class="title">Alia's Builder Quest</div>
+      <p class="sub">
+        Storm Trouble broke Builder City. To rebuild it, Alia becomes the chief engineer.
+        She must solve real Math 3 challenges to cut lumber, load trucks, repair engines, read blueprints, and complete each construction site.
+      </p>
+      <div class="heroRow">
+        <div class="pill" id="rankPill">👷 Apprentice Builder</div>
+        <div class="pill" id="materialsPill">🔩 Materials: 0</div>
+        <div class="pill" id="masteryPill">📋 Mastery: 85% • 10 minimum • all skills checked</div>
+      </div>
+    </div>
+
     <div class="statusCard">
       <div class="sectionTitle"><h3 style="margin:0">Workshop Dashboard</h3><div class="row"><span class="pill" id="currentUserPill">Student</span><button class="secondary" id="logoutBtn">Change player</button></div></div>
-      <div class="statusGrid"><div class="stat"><small>Current zone</small><strong id="zoneNum">1</strong></div><div class="stat"><small>Build progress</small><strong id="buildPct">0%</strong></div><div class="stat"><small>Correct</small><strong id="correctCount">0</strong></div><div class="stat"><small>Attempts</small><strong id="attemptCount">0</strong></div></div>
-      <div style="margin-top:14px"><small class="smallMuted">Project progress</small><div class="progress" style="margin-top:6px"><div id="projectBar"></div></div></div>
-      <div class="footerNote">Perfect 100% mastery unlocks a Mommy-approved reward. Below 85% triggers a Mommy confirmation gate.</div>
+      <div class="statusGrid">
+        <div class="stat"><small>Current zone</small><strong id="zoneNum">1</strong></div>
+        <div class="stat"><small>Construction</small><strong id="buildPct">0%</strong></div>
+        <div class="stat"><small>Correct</small><strong id="correctCount">0</strong></div>
+        <div class="stat"><small>Attempts</small><strong id="attemptCount">0</strong></div>
+      </div>
+      <div style="margin-top:14px">
+        <small class="smallMuted">Construction progress</small>
+        <div class="progress" style="margin-top:6px"><div id="projectBar"></div></div>
+      </div>
+      <div id="levelStatusBanner" class="levelStatusBanner building">🏗️ BUILDING IN PROGRESS</div>
+      <div class="footerNote">Finishing construction does not complete the level. The Foreman's Inspection must be passed with at least 85% to unlock the next zone.</div>
     </div>
   </section>
+
   <section class="layout">
-    <section class="mapCard"><div class="sectionTitle"><h2 style="margin:0">Builder City Map</h2><span class="pill" id="projectPill">Project 1</span></div><div class="town" id="townMap"></div></section>
-    <section class="missionCard">
-      <div class="sectionTitle"><div><div class="qType" id="modeLabel">MISSION</div><h2 style="margin:8px 0 0 0" id="missionTitle">Lumber Yard Rescue</h2></div><span class="pill" id="questionCounter">Practice</span></div>
-      <div class="missionStage" id="missionStage"><div class="missionArt" id="missionArt">🪚</div><div class="storyBox" id="storyBox">The lumber crew needs help cutting equal groups of boards.</div><div class="tipBox" id="tipBox"><strong>Builder tip:</strong> Multiplication means equal groups.</div><div class="qText" id="questionText">Question loads here.</div><div id="inputWrap" class="answerRow"><input id="answerInput" inputmode="numeric" autocomplete="off" placeholder="Type your answer"><button id="checkBtn">Build it</button></div><div id="choiceWrap" class="choices hidden"></div><div class="feedback" id="feedback"></div><div class="answerRow"><button id="nextBtn" class="secondary hidden">Next mission</button></div></div>
-      <div id="masteryBox" class="taskCard hidden" style="margin-top:14px"><h3 style="margin-bottom:8px">Foreman's Inspection</h3><p class="smallMuted" style="font-size:14px">This site is built. The inspection has at least 10 questions and keeps going until every skill in this section has been checked at least twice. Alia needs at least 85% overall to unlock the next zone.</p><button id="startTestBtn" class="gold">Start inspection test</button></div>
+    <section class="mapCard">
+      <div class="sectionTitle">
+        <h2 style="margin:0">Builder City Map</h2>
+        <span class="pill" id="projectPill">Project 1</span>
+      </div>
+      <div class="town" id="townMap"></div>
     </section>
-    <aside class="sideCard"><div class="sectionTitle"><h3 style="margin:0">Mission Log</h3><span class="pill" id="themePill">🔧 Builder theme</span></div><div id="taskList" class="taskList"></div><h3 style="margin:16px 0 8px">Inventory</h3><div class="inventory"><div class="loot"><small>Wood</small><strong id="woodCount">0</strong></div><div class="loot"><small>Bolts</small><strong id="boltCount">0</strong></div><div class="loot"><small>Gears</small><strong id="gearCount">0</strong></div><div class="loot"><small>Stars</small><strong id="starCount">0</strong></div></div><div class="taskCard" style="margin-top:16px;background:#fff6e8"><strong>Foreman Bolt says:</strong><p id="coachText" style="margin:8px 0 0 0">Let's rebuild the city one math mission at a time.</p></div></aside>
+
+    <section class="missionCard">
+      <div class="sectionTitle">
+        <div>
+          <div class="qType" id="modeLabel">MISSION</div>
+          <h2 style="margin:8px 0 0 0" id="missionTitle">Lumber Yard Rescue</h2>
+        </div>
+        <span class="pill" id="questionCounter">Practice</span>
+      </div>
+
+      <div class="missionStage" id="missionStage">
+        <div class="missionArt" id="missionArt">🪚</div>
+        <div class="storyBox" id="storyBox">The lumber crew needs help cutting equal groups of boards.</div>
+        <div class="tipBox" id="tipBox"><strong>Builder tip:</strong> Multiplication means equal groups.</div>
+        <div class="qText" id="questionText">Question loads here.</div>
+
+        <div id="inputWrap" class="answerRow">
+          <input id="answerInput" inputmode="numeric" autocomplete="off" placeholder="Type your answer">
+          <button id="checkBtn">Build it</button>
+        </div>
+
+        <div id="choiceWrap" class="choices hidden"></div>
+
+        <div class="feedback" id="feedback"></div>
+        <div class="answerRow">
+          <button id="nextBtn" class="secondary hidden">Next mission</button>
+        </div>
+      </div>
+
+      <div id="masteryBox" class="taskCard hidden" style="margin-top:14px">
+        <h3 style="margin-bottom:8px">Foreman's Inspection</h3>
+        <p class="smallMuted" style="font-size:14px">
+          This site is built. The inspection has at least 10 questions and keeps going until every skill in this section has been checked at least twice. Alia needs at least 85% overall to unlock the next zone.
+        </p>
+        <button id="startTestBtn" class="gold">Start inspection test</button>
+      </div>
+    </section>
+
+    <aside class="sideCard">
+      <div class="sectionTitle"><h3 style="margin:0">Mission Log</h3><span class="pill" id="themePill">🔧 Builder theme</span></div>
+      <div id="taskList" class="taskList"></div>
+      <h3 style="margin:16px 0 8px">Inventory</h3>
+      <div class="inventory">
+        <div class="loot"><small>Wood</small><strong id="woodCount">0</strong></div>
+        <div class="loot"><small>Bolts</small><strong id="boltCount">0</strong></div>
+        <div class="loot"><small>Gears</small><strong id="gearCount">0</strong></div>
+        <div class="loot"><small>Stars</small><strong id="starCount">0</strong></div>
+      </div>
+      <div class="taskCard" style="margin-top:16px;background:#fff6e8">
+        <strong>Foreman Bolt says:</strong>
+        <p id="coachText" style="margin:8px 0 0 0">Let's rebuild the city one math mission at a time.</p>
+      </div>
+    </aside>
   </section>
 </main>
 </div>
-<div class="overlay hidden" id="parentOverlay"><div class="modalCard"><h2>Parent Access</h2><p>The Parent Password is shared across this device. Use it to confirm consequences and rewards, or return to the opening screen and choose Parent Settings.</p><button class="secondary" id="closeParentBtn">Close</button></div></div>
-<div class="overlay hidden" id="gateOverlay"><div class="modalCard"><div class="center"><div class="spark">🔐</div><h2>Show Mommy for Confirmation</h2></div><p>The inspection score was below 85%. Alia must complete this consequence first:</p><div class="taskCard" style="background:#fff4f4;border-color:#eed0d0"><strong id="consequenceText">Household chore</strong></div><p style="margin-top:12px">After it is done, Mommy enters the password to unlock the city again.</p><div class="answerRow"><input id="gatePassword" type="password" placeholder="Mommy password"><button class="warning" id="confirmGateBtn">Confirm done</button></div><div class="feedback" id="gateFeedback"></div></div></div>
-<div class="overlay hidden" id="rewardOverlay"><div class="modalCard"><div class="center"><div class="spark">🏆</div><h2>Perfect 100% Mastery</h2><p>Choose one reward for Mommy to approve.</p></div><div class="rewardGrid"><button class="choice" data-reward="30 minutes school-day screen time">📺<br><strong>30 min screen time</strong></button><button class="choice" data-reward="Cash reward chosen by Mommy">💵<br><strong>Cash</strong></button><button class="choice" data-reward="Food reward chosen by Mommy">🍜<br><strong>Food</strong></button></div><div id="rewardApproval" class="hidden" style="margin-top:16px"><div class="taskCard" style="background:#fffdf1;border-color:#eadca8"><strong id="selectedReward"></strong></div><div class="answerRow" style="margin-top:12px"><input id="rewardPassword" type="password" placeholder="Mommy password"><button id="approveRewardBtn" class="gold">Approve reward</button></div><div class="feedback" id="rewardFeedback"></div></div></div></div>
+
+<div class="overlay hidden" id="parentOverlay">
+  <div class="modalCard">
+    <h2>Parent Access</h2>
+    <p>The Parent Password is shared across this device. Use it to confirm consequences and rewards, or return to the opening screen and choose Parent Settings.</p>
+    <button class="secondary" id="closeParentBtn">Close</button>
+  </div>
+</div>
+
+<div class="overlay hidden" id="gateOverlay">
+  <div class="modalCard">
+    <div class="center">
+      <div class="spark">🔐</div>
+      <h2>Show Mommy for Confirmation</h2>
+    </div>
+    <p>The inspection score was below 85%. Alia must complete this consequence first:</p>
+    <div class="taskCard" style="background:#fff4f4;border-color:#eed0d0">
+      <strong id="consequenceText">Household chore</strong>
+    </div>
+    <p style="margin-top:12px">After it is done, Mommy enters the password to unlock the city again.</p>
+    <div class="answerRow">
+      <input id="gatePassword" type="password" placeholder="Mommy password">
+      <button class="warning" id="confirmGateBtn">Confirm done</button>
+    </div>
+    <div class="feedback" id="gateFeedback"></div>
+  </div>
+</div>
+
+<div class="overlay hidden" id="rewardOverlay">
+  <div class="modalCard">
+    <div class="center">
+      <div class="spark">🏆</div>
+      <h2>Perfect 100% Mastery</h2>
+      <p>Choose one reward for Mommy to approve.</p>
+    </div>
+    <div class="rewardGrid">
+      <button class="choice" data-reward="30 minutes school-day screen time">📺<br><strong>30 min screen time</strong></button>
+      <button class="choice" data-reward="Cash reward chosen by Mommy">💵<br><strong>Cash</strong></button>
+      <button class="choice" data-reward="Food reward chosen by Mommy">🍜<br><strong>Food</strong></button>
+    </div>
+    <div id="rewardApproval" class="hidden" style="margin-top:16px">
+      <div class="taskCard" style="background:#fffdf1;border-color:#eadca8">
+        <strong id="selectedReward"></strong>
+      </div>
+      <div class="answerRow" style="margin-top:12px">
+        <input id="rewardPassword" type="password" placeholder="Mommy password">
+        <button id="approveRewardBtn" class="gold">Approve reward</button>
+      </div>
+      <div class="feedback" id="rewardFeedback"></div>
+    </div>
+  </div>
+</div>
 <script src="app.js"></script>
 </body>
 </html>
