@@ -18,6 +18,9 @@ jobs:
           node --check config.js
           node --check questions.js
           node --check app.js
+          node --check tests/validate-engine.js
+      - name: Validate learning engine and encounter capacity
+        run: node tests/validate-engine.js
       - name: Check page architecture
         run: |
           grep -q '<script src="config.js"></script>' index.html
