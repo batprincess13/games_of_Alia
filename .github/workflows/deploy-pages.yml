@@ -23,31 +23,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build install icons
+      - name: Build approved install icons
         run: |
+          cat icons/source/approved-*.b64 | tr -d '\n\r' | base64 --decode > icons/games-of-alia-180.png
+          echo 'fb32b2090243d82cccb93524bd52273501bc3963014eb2cf21634672c39685bf  icons/games-of-alia-180.png' | sha256sum --check
           python3 -m pip install --disable-pip-version-check --quiet pillow
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
-          from io import BytesIO
-          import base64
 
           src = Path('icons/games-of-alia-180.png')
-          raw = src.read_bytes()
-          try:
-              img = Image.open(BytesIO(raw)).convert('RGB')
-          except Exception:
-              decoded = base64.b64decode(raw)
-              img = Image.open(BytesIO(decoded)).convert('RGB')
-              src.write_bytes(decoded)
-
+          with Image.open(src) as opened:
+              img = opened.convert('RGB')
           if img.size != (180, 180):
-              img = img.resize((180, 180), Image.Resampling.LANCZOS)
-              img.save(src, 'PNG', optimize=True)
-
+              raise SystemExit(f'Approved icon has unexpected size: {img.size}')
           for size in (192, 512):
               out = img.resize((size, size), Image.Resampling.LANCZOS)
               out.save(Path('icons') / f'games-of-alia-{size}.png', 'PNG', optimize=True)
+          print('Approved Games of Alia artwork verified and app icons generated.')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
