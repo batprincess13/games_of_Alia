@@ -1,1 +1,167 @@
-(async()=>{try{const b64="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";if(typeof DecompressionStream==="undefined")throw new Error("This browser does not support DecompressionStream.");const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));const code=await new Response(stream).text();(0,eval)(code)}catch(err){console.error(err);document.body.innerHTML='<main style="max-width:700px;margin:40px auto;font-family:system-ui;padding:20px"><h1>Builder Quest could not start</h1><p>Please open it in a current version of Chrome, Edge, Safari, or Firefox.</p></main>'}})();
+function toolboxQuestion(i){
+ const qs=[
+  ()=>numeric("A toolbox has 2 rows of 4 nails. How many nails?",8,"2 groups of 4."),
+  ()=>numeric("3 boards need 5 screws each. How many screws?",15,"3 groups of 5."),
+  ()=>numeric("A board is 4 cm by 3 cm. What is its area?",12,"Length × width."),
+  ()=>mc("Two rails that never meet are…","parallel",["perpendicular","intersecting","a ray"],"They stay the same distance apart."),
+  ()=>numeric("What is the value of the 5 in 3,542?",500,"The 5 is in the hundreds place."),
+  ()=>numeric("Round 1,648 to the nearest hundred.",1600,"Check the tens digit."),
+  ()=>mc("Which is greater?","4,210",["4,120","equal","4,012"],"Compare place values from left to right."),
+  ()=>numeric("You have ₱300 and earn ₱125. How much now?",425,"Add the amounts."),
+  ()=>numeric("You have 900 screws and use 250. How many remain?",650,"Subtract."),
+  ()=>numeric("6 brackets with 4 screws each need how many screws?",24,"6 groups of 4.")
+ ];
+ return qs[i]();
+}
+
+function startPlayer(){
+ const name=$("playerName").value.trim(); if(!name)return;
+ const key=name.toLowerCase().replace(/\s+/g," ");
+ const ps=loadProfiles(); if(!ps[key])ps[key]=freshProfile(name);
+ state.key=key;state.profile=ps[key];localStorage.setItem(PROFILE_KEY,JSON.stringify(ps));
+ $("startScreen").classList.add("hidden");$("game").classList.remove("hidden");
+ if(!state.profile.toolboxDone) showToolbox(); else newJob();
+ renderAll();
+}
+function renderAll(){renderHeader();renderTiers();renderSkills();renderWorkshop();renderMaterials();}
+function renderHeader(){
+ const t=activeTier(),q=currentQuarter();
+ $("playerPill").textContent="👷 "+state.profile.name;
+ $("tierPill").textContent=TIERS[t].icon+" "+TIERS[t].name;
+ $("quarterPill").textContent="📘 Quarter "+q;
+ $("cashStat").textContent=peso(state.profile.cash);
+ $("jobsStat").textContent=state.profile.jobs;
+ $("masteredStat").textContent=masteredCount()+"/"+SKILLS.length;
+ $("evidenceStat").textContent=totalEvidence();
+}
+function renderTiers(){
+ const cur=activeTier();
+ $("bizPath").innerHTML=TIERS.map((t,i)=>{
+  const unlocked=tierUnlocked(i),done=i<cur||(i===0&&state.profile.toolboxDone);
+  return `<div class="tier ${i===cur?"current":done?"done":"locked"}"><strong>${t.icon} ${t.name}</strong><div class="small muted">${t.desc}</div><div class="small" style="margin-top:5px">${done?"✓ Completed":unlocked?"● Current":"🔒 Locked by math mastery"}</div></div>`;
+ }).join("");
+}
+function renderSkills(){
+ const q=currentQuarter(),cur=state.q?.skillId||chooseSkill().id;
+ $("skillList").innerHTML=SKILLS.filter(s=>s.q===q).map(s=>{
+  const st=getStat(s.id),a=Math.round(accuracy(s.id)*100),locked=!prereqsMet(s.id)&&!st.mastered;
+  return `<div class="skill ${s.id===cur?"active":""} ${st.mastered?"mastered":""}"><div style="display:flex;justify-content:space-between;gap:8px"><strong>${s.n}</strong><span class="badge ${st.mastered?"mastered":"learn"}">${st.mastered?"MASTERED":locked?"PREREQ":"LEARNING"}</span></div><small>${st.possible?`${a}% evidence • ${st.attempts} encounters`:"No evidence yet"}</small></div>`;
+ }).join("");
+}
+function renderWorkshop(){
+ const sk=state.q?S[state.q.skillId]:chooseSkill(),st=getStat(sk.id),a=Math.round(accuracy(sk.id)*100);
+ $("focusSkill").textContent=sk.n;
+ $("focusMastery").textContent=(st.possible?a:0)+"%";
+ $("focusBar").style.width=(st.possible?a:0)+"%";
+ $("focusEvidence").textContent=`${st.possible.toFixed(1)} weighted points across ${contextCount(st)} contexts`;
+ $("adaptiveNote").textContent=st.mastered?(st.review?"Mastered earlier, but recent errors triggered spiral review.":"Mastered. It will still appear occasionally in later jobs for retention."):"The game varies direct, applied, and reasoning tasks. Strong, consistent performance can establish mastery quickly; uncertainty generates more evidence.";
+}
+function renderMaterials(){
+ const tools=state.profile.tools||[],inv=state.profile.inventory||{};
+ $("materials").innerHTML=[...tools.slice(-4).map(t=>`<div class="material">${t.icon} <strong>${t.name}</strong></div>`),`<div class="material">🪵 Wood <strong>${inv.wood||0}</strong></div>`,`<div class="material">🔩 Screws <strong>${inv.screws||0}</strong></div>`].join("");
+}
+
+function showToolbox(){
+ $("jobArea").classList.add("hidden");$("completionCard").classList.add("hidden");$("toolboxIntro").classList.remove("hidden");
+ const i=state.profile.toolboxIndex||0;
+ if(i>=10){finishToolbox();return}
+ state.q={...toolboxQuestion(i),skillId:["q3_facts","q3_facts","q1_area","q1_lines","q1_place","q1_round","q1_compare","q2_add","q2_sub","q3_facts"][i],toolbox:true};
+ state.answered=false;state.hinted=false;
+ const tool=TOOLBOX[i];
+ $("toolboxIntro").innerHTML=`<div class="jobHeader"><div><span class="badge">TOOLBOX TUTORIAL ${i+1}/10</span><h2 style="margin:7px 0">Earn: ${tool[0]} ${tool[1]}</h2><p class="muted">Short prerequisite check. Correct answers add starter tools.</p></div><div class="jobIcon">${tool[0]}</div></div><div class="step"><div class="context">BASIC CHECK</div><div class="q">${state.q.text}</div><div id="tbAnswer"></div><div id="tbFeedback" class="feedback"></div><div class="row" style="margin-top:8px"><button id="tbHint" class="secondary">Hint</button><button id="tbNext" class="gold hidden">Next tool</button></div></div>`;
+ renderInlineAnswer("tbAnswer",state.q,submitToolbox);
+ $("tbHint").onclick=()=>{$("tbFeedback").textContent="Hint: "+state.q.hint;$("tbFeedback").className="feedback hintText";state.hinted=true};
+ $("tbNext").onclick=()=>{state.profile.toolboxIndex++;saveProfiles();showToolbox();renderAll()};
+}
+function renderInlineAnswer(containerId,q,handler){
+ const el=$(containerId);
+ if(q.type==="choice"){
+  el.innerHTML=`<div class="choices">${q.options.map(o=>`<button class="choice" data-v="${o.replace(/"/g,"&quot;")}">${o}</button>`).join("")}</div>`;
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>handler(b.dataset.v));
+ }else{
+  el.innerHTML=`<div class="answerRow"><input id="${containerId}Input" autocomplete="off"><button id="${containerId}Check">Check</button></div>`;
+  const inp=$(containerId+"Input"),btn=$(containerId+"Check");btn.onclick=()=>handler(inp.value.trim());
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();handler(inp.value.trim())}});setTimeout(()=>inp.focus(),50);
+ }
+}
+function submitToolbox(v){
+ if(state.answered)return;
+ const correct=String(v).trim().toLowerCase()===String(state.q.answer).trim().toLowerCase();
+ state.answered=true;recordEvidence(state.q.skillId,correct,"direct",state.hinted);
+ if(correct){const t=TOOLBOX[state.profile.toolboxIndex];state.profile.tools.push({icon:t[0],name:t[1]});$("tbFeedback").textContent=`Correct. ${t[0]} ${t[1]} added to your toolbox.`;$("tbFeedback").className="feedback good";}
+ else{$("tbFeedback").textContent=`Not quite. Correct answer: ${state.q.answer}. Review it, then continue.`;$("tbFeedback").className="feedback bad";}
+ $("tbNext").classList.remove("hidden");saveProfiles();renderAll();
+}
+function finishToolbox(){
+ state.profile.toolboxDone=true;state.profile.tier=1;state.profile.cash+=100;saveProfiles();
+ $("toolboxIntro").classList.add("hidden");$("completionCard").classList.remove("hidden");
+ $("completionCard").innerHTML=`<h2>🧰 Toolbox Ready</h2><p>You now have the starter tools to accept paid house calls.</p><div class="notice">The business will grow only when your math evidence supports the next level of contracts.</div><button id="firstJob">Accept First House Call</button>`;
+ $("firstJob").onclick=()=>{$("completionCard").classList.add("hidden");newJob();renderAll()};renderAll();
+}
+
+function contextsFor(sk){const st=getStat(sk.id);if(!st.contexts.direct)return "direct";if(!st.contexts.applied)return "applied";if(sk.c>=2&&!st.contexts.reasoning)return "reasoning";return pick(["applied","reasoning","direct"]);}
+function newJob(){
+ if(!state.profile.toolboxDone){showToolbox();return}
+ $("toolboxIntro").classList.add("hidden");$("completionCard").classList.add("hidden");$("jobArea").classList.remove("hidden");
+ const tier=activeTier(),pool=JOBS[TIERS[tier].id]||JOBS.calls,meta=pick(pool),primary=chooseSkill();
+ let skills=[primary.id];const steps=tier===1?3:tier===2?4:5;const mastered=SKILLS.filter(s=>getStat(s.id).mastered);
+ while(skills.length<steps){if(Math.random()<.65)skills.push(primary.id);else if(mastered.length)skills.push(pick(mastered).id);else skills.push(primary.id);}
+ const questions=skills.map(id=>{const sk=S[id],ctx=contextsFor(sk),q=genQuestion(id,ctx);return {...q,skillId:id}});
+ state.job={title:meta[0],desc:meta[1],icon:meta[2],tier,questions,index:0,earned:0,primary:primary.id};
+ $("jobType").textContent=TIERS[tier].name.toUpperCase();$("jobTitle").textContent=meta[0];$("jobDesc").textContent=meta[1];$("jobIcon").textContent=meta[2];showJobQuestion();
+}
+function showJobQuestion(){
+ const j=state.job;if(j.index>=j.questions.length){finishJob();return}
+ state.q=j.questions[j.index];state.answered=false;state.hinted=false;const q=state.q;
+ $("contextLabel").textContent=(q.context||"applied").toUpperCase()+" • "+S[q.skillId].n.toUpperCase();$("questionVisual").innerHTML=q.visual||"";$("questionText").textContent=q.text;
+ $("feedback").textContent="";$("nextBtn").classList.add("hidden");$("hintBtn").disabled=false;$("jobProgress").style.width=(j.index/j.questions.length*100)+"%";$("jobMoney").textContent=peso(j.earned);
+ if(q.type==="choice"){$("inputAnswer").classList.add("hidden");$("choices").classList.remove("hidden");$("choices").innerHTML=q.options.map(o=>`<button class="choice" data-v="${String(o).replace(/"/g,"&quot;")}">${o}</button>`).join("");$("choices").querySelectorAll("button").forEach(b=>b.onclick=()=>submitJob(b.dataset.v));}
+ else{$("choices").classList.add("hidden");$("inputAnswer").classList.remove("hidden");$("answerInput").value="";$("checkBtn").disabled=false;setTimeout(()=>$("answerInput").focus(),50);}
+ renderAll();
+}
+function submitJob(v){
+ if(state.answered)return;const correct=String(v).trim().toLowerCase()===String(state.q.answer).trim().toLowerCase();state.answered=true;recordEvidence(state.q.skillId,correct,state.q.context||"applied",state.hinted);
+ $("hintBtn").disabled=true;$("checkBtn").disabled=true;$("choices").querySelectorAll("button").forEach(b=>b.disabled=true);
+ if(correct){const pay=state.q.context==="reasoning"?35:state.q.context==="applied"?25:18;state.job.earned+=pay;const mats=["wood","screws","brackets","paint"],m=pick(mats);state.profile.inventory[m]=(state.profile.inventory[m]||0)+1;$("feedback").textContent=`Correct. Job decision cleared. +${peso(pay)} labor value and +1 ${m}.`;$("feedback").className="feedback good";}
+ else{$("feedback").textContent=`Not yet. Correct answer: ${state.q.answer}. This skill will appear again because the game needs more evidence.`;$("feedback").className="feedback bad";}
+ $("nextBtn").classList.remove("hidden");saveProfiles();renderAll();
+}
+$("checkBtn").onclick=()=>submitJob($("answerInput").value);
+$("answerInput").addEventListener("keydown",e=>{if(e.key!=="Enter")return;e.preventDefault();if(!state.answered)submitJob($("answerInput").value);else if(!$("nextBtn").classList.contains("hidden"))nextJobStep();});
+$("nextBtn").onclick=nextJobStep;function nextJobStep(){state.job.index++;showJobQuestion()}
+$("hintBtn").onclick=()=>{state.hinted=true;$("feedback").textContent="Hint: "+state.q.hint;$("feedback").className="feedback hintText"};
+
+function finishJob(){
+ const j=state.job,base=[0,80,180,420,900][j.tier]||80,materialCost=Math.max(20,Math.round(base*.45));
+ const feeSets={1:[30,50,80],2:[80,120,180],3:[180,280,400],4:[350,500,750]},fees=feeSets[j.tier]||[30,50,80];
+ $("jobArea").classList.add("hidden");$("completionCard").classList.remove("hidden");
+ $("completionCard").innerHTML=`<span class="badge">JOB READY TO QUOTE</span><h2 style="margin-top:8px">${j.icon} ${j.title}</h2><p>The repair work is planned. Before closing the contract, decide what to charge for your work.</p><div class="materials"><div class="material"><small>Materials you must pay for</small><strong>${peso(materialCost)}</strong></div><div class="material"><small>Math earned during the job</small><strong>${peso(j.earned)}</strong></div></div><div class="notice" style="margin-top:12px"><strong>Business decision:</strong> choose a service fee. At Grade 3, Builder Quest uses fixed peso service fees and fixed peso markups rather than percentage markup, because percentage calculations are outside this Grade 3 curriculum.</div><p><strong>Choose your service fee:</strong></p><div class="choices" id="feeChoices">${fees.map((f,i)=>`<button class="choice" data-fee="${f}">${peso(f)} — ${i===0?"low fee":i===1?"balanced fee":"premium fee"}</button>`).join("")}</div><div id="quotePreview" class="feedback"></div>`;
+ $("feeChoices").querySelectorAll("button").forEach(b=>b.onclick=()=>finalizeJob(materialCost,Number(b.dataset.fee)));
+}
+function finalizeJob(materialCost,serviceFee){
+ const j=state.job,quote=materialCost+serviceFee;state.profile.cash+=serviceFee;state.profile.jobs++;saveProfiles();const st=getStat(j.primary),tierNow=activeTier();
+ const reaction=serviceFee<=50?"The customer likes the low price, but your business grows more slowly.":serviceFee>=400?"The customer asks you to explain the value of your premium service.":"The quote covers the materials and pays you for your work.";
+ $("completionCard").innerHTML=`<span class="badge">CONTRACT COMPLETE</span><h2 style="margin-top:8px">${j.icon} ${j.title}</h2><div class="materials"><div class="material"><small>Materials cost</small><strong>${peso(materialCost)}</strong></div><div class="material"><small>Your service fee</small><strong>${peso(serviceFee)}</strong></div><div class="material"><small>Customer quote</small><strong>${peso(quote)}</strong></div><div class="material"><small>Business profit</small><strong>${peso(serviceFee)}</strong></div></div><div class="lockReason" style="margin-top:12px">${reaction}</div><div class="notice" style="margin-top:12px"><strong>${S[j.primary].n}:</strong> ${Math.round(accuracy(j.primary)*100)}% current evidence. ${st.mastered?" Mastery threshold met.":" The game will keep sampling this skill in varied jobs until mastery is reliable."}</div>${tierNow>j.tier?`<div class="lockReason"><strong>New contract class unlocked:</strong> ${TIERS[tierNow].icon} ${TIERS[tierNow].name}</div>`:""}<button id="nextContract" style="margin-top:12px">Accept Next Contract</button>`;
+ $("nextContract").onclick=()=>{$("completionCard").classList.add("hidden");newJob();renderAll()};renderAll();
+}
+
+function renderCurriculum(){
+ $("curriculumMap").innerHTML=[1,2,3,4].map(q=>{const skills=SKILLS.filter(s=>s.q===q),done=skills.filter(s=>getStat(s.id).mastered).length;return `<div class="quarter"><h4>Quarter ${q} — ${done}/${skills.length} topics mastered</h4>${skills.map(s=>{const st=getStat(s.id);return `<div class="small" style="padding:5px 0"><strong>${st.mastered?"✓":"○"} ${s.n}</strong><br><span class="muted">${s.comps.join(" • ")}</span></div>`}).join("")}</div>`}).join("");
+}
+$("curriculumBtn").onclick=()=>{renderCurriculum();$("curriculumModal").classList.remove("hidden")};$("closeCurriculum").onclick=()=>$("curriculumModal").classList.add("hidden");
+
+function openParent(){
+ $("parentModal").classList.remove("hidden");const pass=localStorage.getItem(PARENT_KEY);
+ if(!pass){$("parentSetup").innerHTML=`<p>Set one parent password for this browser/device.</p><input id="newPass1" type="password" placeholder="New parent password"><input id="newPass2" type="password" placeholder="Confirm password" style="margin-top:8px"><button id="savePass" style="margin-top:10px">Set Parent Password</button>`;$("savePass").onclick=()=>{const a=$("newPass1").value,b=$("newPass2").value;if(a.length<4||a!==b){alert("Passwords must match and be at least 4 characters.");return}localStorage.setItem(PARENT_KEY,a);openParent()};}
+ else{$("parentSetup").innerHTML=`<p>Enter the device parent password to view controls.</p><input id="parentPassInput" type="password" placeholder="Parent password"><button id="unlockParent" style="margin-top:10px">Unlock</button><div id="parentControls"></div>`;$("unlockParent").onclick=()=>{if($("parentPassInput").value!==pass){alert("Incorrect password.");return}const ps=loadProfiles();$("parentControls").innerHTML=`<hr style="border:0;border-top:1px solid var(--line);margin:14px 0"><h3>Saved child profiles</h3>${Object.entries(ps).map(([k,p])=>`<div class="skill"><strong>${p.name}</strong><br><small>${p.jobs||0} jobs • ${Object.values(p.skillStats||{}).filter(x=>x.mastered).length}/${SKILLS.length} skills mastered • ${peso(p.cash||0)}</small></div>`).join("")}<p class="sourceNote">Parent password is stored locally in this browser as a simple family-control deterrent. It is not secure account authentication.</p>`;};}
+}
+$("parentBtn").onclick=openParent;$("closeParent").onclick=()=>$("parentModal").classList.add("hidden");
+$("changePlayer").onclick=()=>{saveProfiles();$("game").classList.add("hidden");$("startScreen").classList.remove("hidden");$("playerName").value=""};
+$("enterBtn").onclick=startPlayer;$("playerName").addEventListener("keydown",e=>{if(e.key==="Enter")startPlayer()});
+
+function maybeConsequenceGate(skillId){
+ const pass=localStorage.getItem(PARENT_KEY);if(!pass||state.profile.pendingGate)return;const st=getStat(skillId),recent=st.recent.slice(-4);
+ if(st.possible>=8&&accuracy(skillId)<.60&&recent.length===4&&recent.filter(Boolean).length<=1){const consequences=["a household chore","1 song number","a dance","read a book"];state.profile.pendingGate=pick(consequences);saveProfiles();showConsequenceGate();}
+}
+function showConsequenceGate(){if(!state.profile?.pendingGate)return;$("gateTitle").textContent="Show Mommy for Confirmation";$("gateText").textContent=`Before continuing, complete: ${state.profile.pendingGate}. A parent must confirm with the device password.`;$("gatePassword").value="";$("gateModal").classList.remove("hidden");}
+$("gateConfirm").onclick=()=>{const pass=localStorage.getItem(PARENT_KEY);if(!pass||$("gatePassword").value!==pass){alert("Incorrect parent password.");return}state.profile.pendingGate=null;saveProfiles();$("gateModal").classList.add("hidden");};
