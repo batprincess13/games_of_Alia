@@ -1,18 +1,25 @@
 {
+  "id": "/games_of_Alia/",
   "name": "Games of Alia",
   "short_name": "Games of Alia",
   "description": "A growing collection of learning games built around meaningful play, problem-solving, and critical thinking.",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/games_of_Alia/",
+  "scope": "/games_of_Alia/",
   "display": "standalone",
   "background_color": "#090d1f",
   "theme_color": "#090d1f",
   "icons": [
     {
-      "src": "icons/games-of-alia-180.png",
-      "sizes": "180x180",
+      "src": "/games_of_Alia/icons/games-of-alia-192.png",
+      "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/games_of_Alia/icons/games-of-alia-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
