@@ -3,150 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Builder Quest — Grade 3 Math Carpenter</title>
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="Games of Alia is a growing collection of games designed to turn learning into challenges, decisions, and meaningful play.">
+<title>Games of Alia — Play with purpose</title>
+<link rel="stylesheet" href="home.css">
 </head>
 <body>
-<div id="startScreen" class="start shell">
-  <div class="card">
-    <h1>🧰 Builder Quest</h1>
-    <p class="muted">Run a carpentry business while mastering Grade 3 Mathematics.</p>
-    <div class="notice"><strong>Device-specific progress.</strong> Enter the same name on this browser to resume. Clearing browser data may erase progress.</div>
-    <label><strong>Child's name</strong></label>
-    <input id="playerName" placeholder="e.g. Alia" autocomplete="off">
-    <div class="row" style="margin-top:12px">
-      <button id="enterBtn">Enter Workshop</button>
-      <button id="parentBtn" class="secondary">Parent Settings</button>
+<header class="shell nav">
+  <a class="brand" href="./" aria-label="Games of Alia home"><span class="brand-mark">✦</span><span>Games of Alia</span></a>
+  <a class="cta" href="#games">Explore the games</a>
+</header>
+
+<main>
+  <section class="shell hero">
+    <div>
+      <div class="eyebrow">A growing learning game collection</div>
+      <h1>Games of Alia <span>Play with purpose.</span></h1>
+      <p class="lead">Games designed to turn school skills into challenges, decisions, and real problem-solving.</p>
+      <p class="sublead">Each game has its own world and mechanics, but every one is built to help children use what they learn, think critically, and grow more confident through play.</p>
+      <div class="actions">
+        <a class="btn primary" href="#games">Explore the games ↓</a>
+        <a class="btn secondary" href="builder-quest/">Play Builder Quest</a>
+      </div>
     </div>
-  </div>
-</div>
-
-<main id="game" class="shell hidden">
-  <div class="header">
-    <section class="card hero">
-      <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div class="hero-art" aria-hidden="true">
+      <div class="orbit"></div>
+      <div class="logo-card">
         <div>
-          <h1 style="font-size:34px">Builder Quest</h1>
-          <p id="storyLead">Start with a toolbox. Then grow from house calls to rooms, houses, and buildings as your math skills grow.</p>
-        </div>
-        <div class="row">
-          <button id="portfolioBtn" class="gold">Portfolio</button>
-          <button id="changePlayer" class="secondary">Change player</button>
+          <div class="big">🎮</div>
+          <strong>Learning should do something.</strong>
+          <p>Understand it. Use it. Solve with it. Grow through it.</p>
         </div>
       </div>
-      <div class="pills">
-        <span class="pill" id="playerPill">👷 Player</span>
-        <span class="pill" id="tierPill">🧰 Toolbox</span>
-        <span class="pill" id="quarterPill">📘 Quarter 1</span>
-      </div>
-    </section>
-    <section class="card">
-      <div class="stats">
-        <div class="stat"><small>Business cash</small><strong id="cashStat">₱0</strong></div>
-        <div class="stat"><small>Contracts completed</small><strong id="jobsStat">0</strong></div>
-        <div class="stat"><small>Skills mastered</small><strong id="masteredStat">0</strong></div>
-        <div class="stat"><small>Overall evidence</small><strong id="evidenceStat">0</strong></div>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
-  <div class="layout">
-    <aside class="card">
-      <h3>Business Path</h3>
-      <div id="bizPath" class="bizPath"></div>
-      <h3 style="margin-top:16px">Current Curriculum</h3>
-      <div id="skillList" class="skillList"></div>
-    </aside>
+  <section class="shell section">
+    <div class="section-label">Why Games of Alia</div>
+    <h2>Learning should be used, not just memorized.</h2>
+    <p class="section-copy">Our games take skills children encounter in school and put them to work inside meaningful worlds. Players solve problems, make decisions, experiment, build, and learn from what happens next.</p>
+    <div class="pillars">
+      <article class="pillar"><div class="icon">📘</div><h3>Learn</h3><p>Understand the idea, rule, or skill with teaching and guided practice built into the game.</p></article>
+      <article class="pillar"><div class="icon">🧠</div><h3>Think</h3><p>Decide how and when to use what was learned instead of simply repeating a memorized pattern.</p></article>
+      <article class="pillar"><div class="icon">⚙️</div><h3>Apply</h3><p>Use knowledge to solve problems, make choices, and move the game forward in meaningful ways.</p></article>
+    </div>
+  </section>
 
-    <section class="card">
-      <div id="toolboxIntro" class="job hidden"></div>
-      <div id="jobArea" class="job hidden">
-        <div class="jobHeader">
-          <div>
-            <span class="badge" id="jobType">HOUSE CALL</span>
-            <h2 id="jobTitle" style="margin:7px 0 5px">Customer Job</h2>
-            <p id="jobDesc" class="muted"></p>
-          </div>
-          <div class="jobIcon" id="jobIcon">🪚</div>
-        </div>
-        <div class="step">
-          <div class="context" id="contextLabel">DIAGNOSE</div>
-          <div id="questionVisual"></div>
-          <div class="q" id="questionText"></div>
-          <div id="choices" class="choices hidden"></div>
-          <div id="inputAnswer" class="answerRow hidden">
-            <input id="answerInput" inputmode="numeric" autocomplete="off" placeholder="Your answer">
-            <button id="checkBtn">Check</button>
-          </div>
-          <div id="feedback" class="feedback"></div>
-          <div class="row" style="margin-top:8px">
-            <button id="hintBtn" class="secondary">Hint</button>
-            <button id="nextBtn" class="gold hidden">Continue job</button>
-          </div>
-        </div>
-        <div class="jobFooter">
-          <div>
-            <small class="muted">Job progress</small>
-            <div class="progress" style="width:240px;max-width:100%"><div id="jobProgress"></div></div>
-          </div>
-          <div id="jobMoney" class="money">₱0</div>
-        </div>
+  <section class="shell section" id="games">
+    <div class="library-head">
+      <div>
+        <div class="section-label">Game library</div>
+        <h2>Choose your game.</h2>
       </div>
-      <div id="completionCard" class="job hidden"></div>
-    </section>
+      <p class="section-copy" style="font-size:15px;max-width:420px">Builder Quest is the first. More subjects, worlds, and ways to learn through play are coming.</p>
+    </div>
 
-    <aside class="card">
-      <h3>Workshop</h3>
-      <div class="ledger">
-        <div><span class="muted">Current focus</span><div id="focusSkill" style="font-weight:900"></div></div>
-        <div><span class="muted">Mastery estimate</span><div id="focusMastery" style="font-size:24px;font-weight:900">0%</div><div class="masteryBar"><div id="focusBar"></div></div></div>
-        <div><span class="muted">Independent evidence</span><div id="focusEvidence" style="font-weight:900">0</div></div>
-      </div>
-      <div class="lockReason" id="adaptiveNote">The game will keep teaching and assessing this competency until mastery evidence is sufficient.</div>
-      <h3 style="margin-top:16px">Tools & Materials</h3>
-      <div id="materials" class="materials"></div>
-      <button id="curriculumBtn" class="secondary" style="margin-top:14px;width:100%">View Grade 3 Curriculum Map</button>
-    </aside>
-  </div>
+    <div class="game-grid">
+      <article class="game-card builder">
+        <span class="tag">First game • Live now</span>
+        <h3>🧰 Builder Quest</h3>
+        <p>Run a carpentry and construction business. Answer customer calls, diagnose jobs, measure projects, buy materials, calculate costs, quote customers, earn profit, and grow your business through mathematics.</p>
+        <div class="game-meta"><span class="chip">Math</span><span class="chip">Grade 3 available now</span><span class="chip">More levels coming</span></div>
+        <a class="play" href="builder-quest/">Play Builder Quest →</a>
+      </article>
+
+      <article class="game-card coming">
+        <span class="tag">Coming soon</span><div class="ghost">🧪</div><h3>New Game</h3><p>A new subject. A new world. A new challenge.</p>
+      </article>
+      <article class="game-card coming">
+        <span class="tag">Coming soon</span><div class="ghost">🗺️</div><h3>New World</h3><p>More ways to learn, reason, and solve through play.</p>
+      </article>
+    </div>
+
+    <div class="more">
+      <div><strong>More worlds are being built.</strong><p>Builder Quest is only the beginning. Games of Alia will continue expanding into new subjects, skills, challenges, and ways to learn through play.</p></div>
+      <a class="btn secondary" href="builder-quest/">Start with Builder Quest</a>
+    </div>
+  </section>
 </main>
 
-<div id="parentModal" class="modal hidden">
-  <div class="card">
-    <h2>Parent Settings</h2>
-    <div id="parentSetup"></div>
-    <div class="row" style="margin-top:12px"><button id="closeParent" class="secondary">Close</button></div>
-  </div>
-</div>
-
-<div id="curriculumModal" class="modal hidden">
-  <div class="card" style="max-height:88vh;overflow:auto">
-    <h2>Grade 3 Mathematics Map</h2>
-    <p class="muted">Builder Quest follows the current Grade 3 curriculum sequence and only advances after defensible mastery evidence.</p>
-    <div id="curriculumMap" class="curriculum"></div>
-    <button id="closeCurriculum" class="secondary" style="margin-top:12px">Close</button>
-  </div>
-</div>
-
-<div id="portfolioModal" class="modal hidden">
-  <div class="card" style="max-height:88vh;overflow:auto">
-    <h2>Carpentry Portfolio</h2>
-    <p class="muted">Completed contracts become a record of actual work and demonstrated mathematics.</p>
-    <div id="portfolioList"></div>
-    <button id="closePortfolio" class="secondary" style="margin-top:12px">Close</button>
-  </div>
-</div>
-
-<div id="gateModal" class="modal hidden">
-  <div class="card">
-    <h2 id="gateTitle">SHOW MOMMY FOR CONFIRMATION</h2>
-    <p id="gateText"></p>
-    <input id="gatePassword" type="password" placeholder="Parent password">
-    <button id="gateConfirm" style="margin-top:10px;width:100%">Parent confirms</button>
-  </div>
-</div>
-
-<script src="config.js"></script>
-<script src="questions.js"></script>
-<script src="app.js"></script>
+<footer class="shell footer">Games of Alia • Play with purpose.</footer>
 </body>
 </html>
