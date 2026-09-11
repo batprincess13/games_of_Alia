@@ -16,7 +16,7 @@ const testLines=[
   "    for(const c of skill.comps)st.components[c]={possible:c===target?0:99,earned:c===target?0:99};",
   "    state.profile.seenQuestions[skill.id]=[];",
   "    let sample=null;",
-  "    for(let i=0;i<120;i++){",
+  "    for(let i=0;i<260;i++){",
   "      const q=genQuestion(skill.id,i%3===0?'reasoning':i%3===1?'applied':'direct');",
   "      sample=q;",
   "      keys.add(q.key);",
