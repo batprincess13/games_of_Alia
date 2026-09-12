@@ -1,17 +1,18 @@
-const CACHE='games-of-alia-v4';
+const CACHE='games-of-alia-v5';
 const CORE=[
   '/games_of_Alia/',
   '/games_of_Alia/index.html',
-  '/games_of_Alia/home.css?v=layout1',
-  '/games_of_Alia/site.webmanifest?v=approved2',
+  '/games_of_Alia/home.css?v=transparent1',
+  '/games_of_Alia/site.webmanifest?v=transparent1',
   '/games_of_Alia/builder-quest/',
   '/games_of_Alia/style.css',
   '/games_of_Alia/config.js',
   '/games_of_Alia/questions.js',
   '/games_of_Alia/app.js',
-  '/games_of_Alia/icons/games-of-alia-180.png?v=approved2',
-  '/games_of_Alia/icons/games-of-alia-192.png?v=approved2',
-  '/games_of_Alia/icons/games-of-alia-512.png?v=approved2'
+  '/games_of_Alia/assets/games-of-alia-logo.png?v=transparent1',
+  '/games_of_Alia/icons/games-of-alia-180.png?v=transparent1',
+  '/games_of_Alia/icons/games-of-alia-192.png?v=transparent1',
+  '/games_of_Alia/icons/games-of-alia-512.png?v=transparent1'
 ];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
