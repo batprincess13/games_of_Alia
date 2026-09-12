@@ -26,39 +26,46 @@ jobs:
       - name: Build approved website and install logo assets
         run: |
           mkdir -p assets icons
-          cat \
-            assets/approved/part-00.b64 \
-            assets/approved/part-01.b64 \
-            assets/approved/part-02.b64 \
-            assets/approved/part-03.b64 \
-            assets/approved/part-04.b64 \
-            assets/approved/part-05.b64 \
-            assets/approved/part-06.b64 \
-            assets/approved/part-07.b64 \
-            | tr -d '\n\r' | base64 --decode > assets/games-of-alia-logo.png
           python3 -m pip install --disable-pip-version-check --quiet pillow
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
-          import hashlib
+          from io import BytesIO
+          import base64, hashlib
 
-          source = Path('assets/games-of-alia-logo.png')
-          with Image.open(source) as opened:
-              opened.verify()
-          with Image.open(source) as opened:
-              img = opened.convert('RGBA')
-          if img.size != (512, 512):
-              raise SystemExit(f'Approved transparent logo has unexpected size: {img.size}')
-          if img.getextrema()[3][0] == 255:
-              raise SystemExit('Approved logo no longer contains transparency')
-          pixel_hash = hashlib.sha256(img.tobytes()).hexdigest()
           expected = 'cd4054f83bfbef72f4349c070e8c1a6485bf3d3c53cbe64a5e3ac3f4c4d2626d'
-          if pixel_hash != expected:
-              raise SystemExit(f'Approved logo pixel mismatch: {pixel_hash}')
+          groups = [
+              ('exact', sorted(Path('assets/exact').glob('part-*.b64'))),
+              ('transparent-source', sorted(Path('assets/source').glob('transparent-*.b64'))),
+              ('approved-backup', sorted(Path('assets/approved').glob('part-*.b64'))),
+          ]
+
+          match = None
+          for label, parts in groups:
+              if not parts:
+                  continue
+              try:
+                  encoded = ''.join(p.read_text().strip() for p in parts)
+                  raw = base64.b64decode(encoded, validate=True)
+                  with Image.open(BytesIO(raw)) as opened:
+                      img = opened.convert('RGBA')
+                  pixel_hash = hashlib.sha256(img.tobytes()).hexdigest()
+                  print(f'{label}: size={img.size}, pixel_hash={pixel_hash}, alpha_min={img.getextrema()[3][0]}')
+                  if img.size == (512, 512) and img.getextrema()[3][0] < 255 and pixel_hash == expected:
+                      match = (raw, img, label)
+                      break
+              except Exception as exc:
+                  print(f'{label}: unusable ({exc})')
+
+          if match is None:
+              raise SystemExit('No repository source matches the approved transparent logo pixel signature.')
+
+          raw, img, label = match
+          Path('assets/games-of-alia-logo.png').write_bytes(raw)
           for size in (180, 192, 512):
               out = img.resize((size, size), Image.Resampling.LANCZOS)
               out.save(Path('icons') / f'games-of-alia-{size}.png', 'PNG', optimize=True)
-          print('Approved transparent Games of Alia artwork verified pixel-for-pixel; install icons generated.')
+          print(f'Approved transparent Games of Alia artwork recovered from {label} and verified pixel-for-pixel.')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
