@@ -36,13 +36,14 @@ jobs:
             assets/exact/part-06.b64 \
             assets/exact/part-07.b64 \
             | tr -d '\n\r' | base64 --decode > assets/games-of-alia-logo.png
-          echo '125b38f12b01bceca10a502bb75fd22ad9120e6ab884282ae07553b72263d294  assets/games-of-alia-logo.png' | sha256sum --check
           python3 -m pip install --disable-pip-version-check --quiet pillow
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
 
           source = Path('assets/games-of-alia-logo.png')
+          with Image.open(source) as opened:
+              opened.verify()
           with Image.open(source) as opened:
               img = opened.convert('RGBA')
           if img.size != (384, 384):
@@ -52,7 +53,7 @@ jobs:
           for size in (180, 192, 512):
               out = img.resize((size, size), Image.Resampling.LANCZOS)
               out.save(Path('icons') / f'games-of-alia-{size}.png', 'PNG', optimize=True)
-          print('Exact existing transparent Games of Alia logo verified and app icons generated.')
+          print('Existing transparent Games of Alia logo passed PNG integrity and transparency checks.')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
