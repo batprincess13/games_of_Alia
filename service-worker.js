@@ -1,8 +1,8 @@
-const CACHE='games-of-alia-v3';
+const CACHE='games-of-alia-v4';
 const CORE=[
   '/games_of_Alia/',
   '/games_of_Alia/index.html',
-  '/games_of_Alia/home.css',
+  '/games_of_Alia/home.css?v=layout1',
   '/games_of_Alia/site.webmanifest?v=approved2',
   '/games_of_Alia/builder-quest/',
   '/games_of_Alia/style.css',
