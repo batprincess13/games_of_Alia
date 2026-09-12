@@ -29,8 +29,8 @@ jobs:
           from pathlib import Path
           import hashlib
           s=Path('assets/exact/part-00.b64').read_text().strip()
-          for i in range(0,len(s),500):
-              print(f'CHUNK {i}: {hashlib.sha256(s[i:i+500].encode()).hexdigest()[:12]}')
+          for i in range(5000,5500,50):
+              print(f'CHUNK {i}: {hashlib.sha256(s[i:i+50].encode()).hexdigest()[:12]} {s[i:i+50]}')
           PY
           mkdir -p assets icons
           cat \
@@ -47,7 +47,6 @@ jobs:
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
-
           source = Path('assets/games-of-alia-logo.png')
           with Image.open(source) as opened:
               opened.verify()
