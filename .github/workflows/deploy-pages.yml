@@ -36,11 +36,12 @@ jobs:
             assets/approved/part-06.b64 \
             assets/approved/part-07.b64 \
             | tr -d '\n\r' | base64 --decode > assets/games-of-alia-logo.png
-          echo '9ea0e75881d4a38b8b20aea8e5f1ddb72fcddfc4e5a3bf0850100efe86ee2500  assets/games-of-alia-logo.png' | sha256sum --check
           python3 -m pip install --disable-pip-version-check --quiet pillow
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
+          import hashlib
+
           source = Path('assets/games-of-alia-logo.png')
           with Image.open(source) as opened:
               opened.verify()
@@ -50,10 +51,14 @@ jobs:
               raise SystemExit(f'Approved transparent logo has unexpected size: {img.size}')
           if img.getextrema()[3][0] == 255:
               raise SystemExit('Approved logo no longer contains transparency')
+          pixel_hash = hashlib.sha256(img.tobytes()).hexdigest()
+          expected = 'cd4054f83bfbef72f4349c070e8c1a6485bf3d3c53cbe64a5e3ac3f4c4d2626d'
+          if pixel_hash != expected:
+              raise SystemExit(f'Approved logo pixel mismatch: {pixel_hash}')
           for size in (180, 192, 512):
               out = img.resize((size, size), Image.Resampling.LANCZOS)
               out.save(Path('icons') / f'games-of-alia-{size}.png', 'PNG', optimize=True)
-          print('Approved transparent Games of Alia logo verified; install icons generated.')
+          print('Approved transparent Games of Alia artwork verified pixel-for-pixel; install icons generated.')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
