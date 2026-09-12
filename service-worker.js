@@ -1,18 +1,18 @@
-const CACHE='games-of-alia-v5';
+const CACHE='games-of-alia-v6';
 const CORE=[
   '/games_of_Alia/',
   '/games_of_Alia/index.html',
-  '/games_of_Alia/home.css?v=transparent1',
-  '/games_of_Alia/site.webmanifest?v=transparent1',
+  '/games_of_Alia/home.css?v=transparent2',
+  '/games_of_Alia/site.webmanifest?v=transparent2',
   '/games_of_Alia/builder-quest/',
   '/games_of_Alia/style.css',
-  '/games_of_Alia/config.js',
-  '/games_of_Alia/questions.js',
-  '/games_of_Alia/app.js',
-  '/games_of_Alia/assets/games-of-alia-logo.png?v=transparent1',
-  '/games_of_Alia/icons/games-of-alia-180.png?v=transparent1',
-  '/games_of_Alia/icons/games-of-alia-192.png?v=transparent1',
-  '/games_of_Alia/icons/games-of-alia-512.png?v=transparent1'
+  '/games_of_Alia/builder-quest/config.js',
+  '/games_of_Alia/builder-quest/questions.js',
+  '/games_of_Alia/builder-quest/app.js',
+  '/games_of_Alia/assets/games-of-alia-logo.png?v=transparent2',
+  '/games_of_Alia/icons/games-of-alia-180.png?v=transparent2',
+  '/games_of_Alia/icons/games-of-alia-192.png?v=transparent2',
+  '/games_of_Alia/icons/games-of-alia-512.png?v=transparent2'
 ];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
