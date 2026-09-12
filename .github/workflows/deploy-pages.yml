@@ -25,6 +25,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Build website and install logo assets
         run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          s=Path('assets/exact/part-00.b64').read_text().strip()
+          for i in range(0,len(s),500):
+              print(f'CHUNK {i}: {hashlib.sha256(s[i:i+500].encode()).hexdigest()[:12]}')
+          PY
           mkdir -p assets icons
           cat \
             assets/exact/part-00.b64 \
