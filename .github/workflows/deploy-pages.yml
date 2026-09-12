@@ -27,14 +27,14 @@ jobs:
         run: |
           mkdir -p assets icons
           cat \
-            assets/source/transparent-00.b64 \
-            assets/source/transparent-01.b64 \
-            assets/source/transparent-02.b64 \
-            assets/source/transparent-03.b64 \
-            assets/source/transparent-04.b64 \
-            assets/source/transparent-05.b64 \
-            assets/source/transparent-06.b64 \
-            assets/source/transparent-07.b64 \
+            assets/exact/part-00.b64 \
+            assets/exact/part-01.b64 \
+            assets/exact/part-02.b64 \
+            assets/exact/part-03.b64 \
+            assets/exact/part-04.b64 \
+            assets/exact/part-05.b64 \
+            assets/exact/part-06.b64 \
+            assets/exact/part-07.b64 \
             | tr -d '\n\r' | base64 --decode > assets/games-of-alia-logo.png
           echo '125b38f12b01bceca10a502bb75fd22ad9120e6ab884282ae07553b72263d294  assets/games-of-alia-logo.png' | sha256sum --check
           python3 -m pip install --disable-pip-version-check --quiet pillow
@@ -52,7 +52,7 @@ jobs:
           for size in (180, 192, 512):
               out = img.resize((size, size), Image.Resampling.LANCZOS)
               out.save(Path('icons') / f'games-of-alia-{size}.png', 'PNG', optimize=True)
-          print('Existing transparent Games of Alia logo verified and app icons generated.')
+          print('Exact existing transparent Games of Alia logo verified and app icons generated.')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
