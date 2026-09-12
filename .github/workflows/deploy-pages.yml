@@ -23,26 +23,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build website and install logo assets
+      - name: Build approved website and install logo assets
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import hashlib
-          s=Path('assets/exact/part-00.b64').read_text().strip()
-          for i in range(5000,5500,50):
-              print(f'CHUNK {i}: {hashlib.sha256(s[i:i+50].encode()).hexdigest()[:12]} {s[i:i+50]}')
-          PY
           mkdir -p assets icons
           cat \
-            assets/exact/part-00.b64 \
-            assets/exact/part-01.b64 \
-            assets/exact/part-02.b64 \
-            assets/exact/part-03.b64 \
-            assets/exact/part-04.b64 \
-            assets/exact/part-05.b64 \
-            assets/exact/part-06.b64 \
-            assets/exact/part-07.b64 \
+            assets/approved/part-00.b64 \
+            assets/approved/part-01.b64 \
+            assets/approved/part-02.b64 \
+            assets/approved/part-03.b64 \
+            assets/approved/part-04.b64 \
+            assets/approved/part-05.b64 \
+            assets/approved/part-06.b64 \
+            assets/approved/part-07.b64 \
             | tr -d '\n\r' | base64 --decode > assets/games-of-alia-logo.png
+          echo '9ea0e75881d4a38b8b20aea8e5f1ddb72fcddfc4e5a3bf0850100efe86ee2500  assets/games-of-alia-logo.png' | sha256sum --check
           python3 -m pip install --disable-pip-version-check --quiet pillow
           python3 - <<'PY'
           from PIL import Image
@@ -52,14 +46,14 @@ jobs:
               opened.verify()
           with Image.open(source) as opened:
               img = opened.convert('RGBA')
-          if img.size != (384, 384):
-              raise SystemExit(f'Existing transparent logo has unexpected size: {img.size}')
+          if img.size != (512, 512):
+              raise SystemExit(f'Approved transparent logo has unexpected size: {img.size}')
           if img.getextrema()[3][0] == 255:
-              raise SystemExit('Existing logo no longer contains transparency')
+              raise SystemExit('Approved logo no longer contains transparency')
           for size in (180, 192, 512):
               out = img.resize((size, size), Image.Resampling.LANCZOS)
               out.save(Path('icons') / f'games-of-alia-{size}.png', 'PNG', optimize=True)
-          print('Existing transparent Games of Alia logo passed PNG integrity and transparency checks.')
+          print('Approved transparent Games of Alia logo verified; install icons generated.')
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
