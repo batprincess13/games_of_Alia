@@ -24,5 +24,7 @@ vm.runInContext(source,sandbox,{filename:'builder-quest-page-smoke.js'});
 const home=fs.readFileSync('index.html','utf8');
 if(!home.includes('Games of Alia'))throw new Error('Homepage brand missing');
 if(!home.includes('href="builder-quest/"'))throw new Error('Homepage Builder Quest link missing');
+if(!home.includes('Million Peso Challenge'))throw new Error('Homepage Million Peso Challenge card missing');
+if(!home.includes('href="https://million-peso-challenge.jenx-ai.chatgpt.site"'))throw new Error('Homepage Million Peso Challenge link missing');
 if(!home.includes('Play with purpose.'))throw new Error('Homepage purpose tagline missing');
 console.log(`Homepage and Builder Quest smoke tests passed with ${ids.size} game DOM ids.`);
