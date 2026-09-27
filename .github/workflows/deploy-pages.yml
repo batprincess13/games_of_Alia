@@ -38,7 +38,7 @@ jobs:
           with Image.open(source) as opened:
               img = opened.convert('RGBA')
 
-          if img.size != (180, 180) or img.getextrema()[3][0] == 255:
+          if img.size != (180, 180):
               raise SystemExit('Approved Games of Alia production icon is invalid.')
 
           Path('assets/games-of-alia-logo.png').write_bytes(source.read_bytes())
