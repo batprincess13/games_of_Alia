@@ -1,4 +1,4 @@
-const CACHE='games-of-alia-v6';
+const CACHE='games-of-alia-v7';
 const CORE=[
   '/games_of_Alia/',
   '/games_of_Alia/index.html',
