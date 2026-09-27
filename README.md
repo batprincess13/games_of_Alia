@@ -8,6 +8,7 @@ Live site: `https://batprincess13.github.io/games_of_Alia/`
 
 - `/` — Games of Alia homepage and game library.
 - `/builder-quest/` — Builder Quest, the first live game.
+- The homepage links to [Million Peso Challenge](https://million-peso-challenge.jenx-ai.chatgpt.site), the second live game, which remains independently hosted and publicly accessible.
 - `home.css` — Games of Alia homepage styling.
 - `style.css`, `config.js`, `questions.js`, `app.js` — current Builder Quest implementation used by the Builder Quest route.
 - `BUILDER_QUEST_GOVERNING_SPEC.md` — controlling Builder Quest learning/game specification.
@@ -22,6 +23,7 @@ Homepage principles:
 
 - It should feel like a real game destination first, not an LMS or worksheet portal.
 - Builder Quest is clearly presented as the first game, not the whole platform.
+- Million Peso Challenge is presented as the second live game and links to its standalone public site.
 - Future games remain uncommitted until approved; use Coming Soon cards rather than inventing product names.
 - Individual games can have their own visual identities while remaining part of Games of Alia.
 
@@ -68,7 +70,7 @@ GitHub Actions runs on every push to `main` and on pull requests. It checks:
 - JavaScript syntax.
 - Builder Quest learning-engine and generator coverage.
 - At least 200 distinct generated encounter keys per competency.
-- Games of Alia homepage presence and link to Builder Quest.
+- Games of Alia homepage presence and links to Builder Quest and Million Peso Challenge.
 - Builder Quest DOM contract and script order at `/builder-quest/`.
 - Governing files remain present.
 
